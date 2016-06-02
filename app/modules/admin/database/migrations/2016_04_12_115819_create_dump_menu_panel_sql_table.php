@@ -13,6 +13,7 @@ class CreateDumpMenuPanelSqlTable extends Migration
     public function up()
     {
         DB::unprepared(file_get_contents("app/modules/admin/database/sql_dump/menu_panel.sql"));
+        DB::unprepared(file_get_contents("app/modules/admin/database/sql_dump/currency.sql"));
     }
 
     /**

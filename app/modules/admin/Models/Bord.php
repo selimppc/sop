@@ -13,6 +13,7 @@ class Bord
 
         $install_list = [
             'locatie_list' => [
+                'Select' => '',
                 'Maretraite' => 'Maretraite',
                 'Lelydorp' => 'Lelydorp',
                 'Kwatta' => 'Kwatta',
@@ -41,16 +42,19 @@ class Bord
                 'Albina' => 'Albina'
             ],
             'achtergrond_list' => [
+                'Select' => '',
                 'hout_gips_cementboard_verkast' => 'hout/gips/cementboard verkast',
                 'steen_porceleinen_tegels' => 'steen/porceleinen tegels',
                 'beton_natuurtegels_natuursteen' => 'beton/natuurtegels/natuursteen'
             ],
             'werkhoogte_list' => [
+                'Select' => '',
                 '0m_-_3m' => '0m - 3m',
                 '3m_-_12m' => '3m - 12m',
                 'gt_12m' => '> 12m'
             ],
             'bracket_list' => [
+                'Select' => '',
                  'small' => 'small',
                  'medium' => 'medium',
                  'large' => 'large'

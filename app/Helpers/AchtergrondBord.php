@@ -400,6 +400,10 @@ class AchtergrondBord
         if($installment_param) {
             $installment_arr = [
                 'LOCATIE' => [
+                    'Select' => [
+                        'usd' => 0,
+                        'aantal' => 0
+                    ],
                     'Maretraite' => [
                         'usd' => 10,
                         'aantal' => 1
@@ -506,6 +510,10 @@ class AchtergrondBord
                     ]
                 ],
                 'ACHTERGROND' => [
+                    'Select' => [
+                        'usd' => 0,
+                        'aantal' => 0
+                    ],
                     'hout_gips_cementboard_verkast' => [
                         'usd' => 5,
                         'aantal' => 2
@@ -520,6 +528,10 @@ class AchtergrondBord
                     ]
                 ],
                 'WERKHOOGTE' => [
+                    'Select' => [
+                        'usd' => 0,
+                        'aantal' => 0
+                    ],
                     '0m_-_3m' => [
                         'usd' => 5,
                         'aantal' => 1
@@ -534,6 +546,10 @@ class AchtergrondBord
                     ]
                 ],
                 'BRACKET' => [
+                    'Select' => [
+                        'usd' => 0,
+                        'aantal' => 0
+                    ],
                     'small' => [
                         'usd' => 10,
                         'aantal' => 1

@@ -73,25 +73,25 @@
                     <div class="row">
                         <div class="col-sm-12">
                             {!! Form::label('uitrijden', 'UITRIJDEN', ['class' => 'control-label']) !!}
-                            {!! Form::Select('location',isset($inst_list['locatie_list'])?$inst_list['locatie_list']:'',@Input::get('location')? Input::get('location') : null,['class'=>'form-control ','required']) !!}
+                            {!! Form::Select('location',isset($inst_list['locatie_list'])?$inst_list['locatie_list']:'',@Input::get('location')? Input::get('location') : null,['class'=>'form-control ']) !!}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             {!! Form::label('achtergrond', 'ACHTERGROND', ['class' => 'control-label']) !!}
-                            {!! Form::Select('background',isset($inst_list['achtergrond_list'])?$inst_list['achtergrond_list']:'',@Input::get('background')? Input::get('background') : null,['class'=>'form-control ','required']) !!}
+                            {!! Form::Select('background',isset($inst_list['achtergrond_list'])?$inst_list['achtergrond_list']:'',@Input::get('background')? Input::get('background') : null,['class'=>'form-control ']) !!}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             {!! Form::label('workhoogte', 'WERKHOOGTE', ['class' => 'control-label']) !!}
-                            {!! Form::Select('workheight',isset($inst_list['werkhoogte_list'])?$inst_list['werkhoogte_list']:'',@Input::get('workheight')? Input::get('workheight') : null,['class'=>'form-control ','required']) !!}
+                            {!! Form::Select('workheight',isset($inst_list['werkhoogte_list'])?$inst_list['werkhoogte_list']:'',@Input::get('workheight')? Input::get('workheight') : null,['class'=>'form-control ']) !!}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             {!! Form::label('bracket', 'BRACKET', ['class' => 'control-label']) !!}
-                            {!! Form::Select('bracket',isset($inst_list['bracket_list'])?$inst_list['bracket_list']:'',@Input::get('bracket')? Input::get('bracket') : null,['class'=>'form-control ','required']) !!}
+                            {!! Form::Select('bracket',isset($inst_list['bracket_list'])?$inst_list['bracket_list']:'',@Input::get('bracket')? Input::get('bracket') : null,['class'=>'form-control ']) !!}
                         </div>
                     </div>
                  </div>

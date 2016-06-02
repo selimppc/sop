@@ -25,13 +25,13 @@
                     <div class="row">
                         <div class="col-sm-12">
                             {!! Form::label('lengte_bord', 'LENGTE BORD', ['class' => 'control-label']) !!}
-                            {!! Form::input('lengte_bord','lengte_bord',@Input::get('lengte_bord')? Input::get('lengte_bord') : null,['class' => 'form-control','placeholder'=>'Enter lengte bord (numbers only)','required','title'=>'Enter lengte bord']) !!}
+                            {!! Form::input('number','lengte_bord',@Input::get('lengte_bord')? Input::get('lengte_bord') : null,['class' => 'form-control','placeholder'=>'Enter lengte bord (numbers only)','required','title'=>'Enter lengte bord']) !!}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             {!! Form::label('breedte_bord', 'BREEDTE BORD', ['class' => 'control-label']) !!}
-                            {!! Form::input('breedte_bord','breedte_bord',@Input::get('breedte_bord')? Input::get('breedte_bord') : null,['class' => 'form-control','placeholder'=>'Enter breedte bord (numbers only)','required','title'=>'Enter breedte bord']) !!}
+                            {!! Form::input('number','breedte_bord',@Input::get('breedte_bord')? Input::get('breedte_bord') : null,['class' => 'form-control','placeholder'=>'Enter breedte bord (numbers only)','required','title'=>'Enter breedte bord']) !!}
                         </div>
                     </div>
                     <div class="row">
