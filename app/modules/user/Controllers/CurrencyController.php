@@ -35,6 +35,7 @@ class CurrencyController extends Controller
         //
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -77,7 +78,11 @@ class CurrencyController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['pageTitle'] = 'View Currency';
+
+        $data['currency_old'] = Currency::findOrFail($id);
+        //print_r($data['currency_old']); exit();
+        return view('user::currency.view', $data);
     }
 
     /**
@@ -88,7 +93,6 @@ class CurrencyController extends Controller
      */
     public function edit($id)
     {
-
         $data['pageTitle'] = 'Edit Currency';
 
         $data['currency_old'] = Currency::findOrFail($id);
@@ -104,6 +108,7 @@ class CurrencyController extends Controller
      */
     public function update(Request $request, $id)
     {
+//        dd($request);
         $input = $request->all();
         #print_r($input);exit;
         date_default_timezone_set("Asia/Dacca");

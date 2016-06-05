@@ -88,12 +88,33 @@
                             {!! Form::Select('workheight',isset($inst_list['werkhoogte_list'])?$inst_list['werkhoogte_list']:'',@Input::get('workheight')? Input::get('workheight') : null,['class'=>'form-control ']) !!}
                         </div>
                     </div>
-                    <div class="row">
+                    {{--<div class="row">
                         <div class="col-sm-12">
                             {!! Form::label('bracket', 'BRACKET', ['class' => 'control-label']) !!}
                             {!! Form::Select('bracket',isset($inst_list['bracket_list'])?$inst_list['bracket_list']:'',@Input::get('bracket')? Input::get('bracket') : null,['class'=>'form-control ']) !!}
                         </div>
+                    </div>--}}
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {!! Form::label('bracket', 'BRACKET', ['class' => 'control-label']) !!}<br>
+                            @if($inst_list['bracket_list'])
+
+                                @foreach($inst_list['bracket_list'] as $bracket)
+                                    @if($bracket!=='')
+                                        <?php
+                                        $chk = Input::get('bracket');
+                                        if($bracket == $chk) $check = "checked";
+                                        else $check = "";
+                                        ?>
+                                        <input type="radio" name="bracket" value="{{ isset($bracket)?$bracket:'' }}"  <?php echo $check; ?> class="px">
+                                    @endif
+                                    <span class="lbl">{{ $bracket }}</span>
+                                @endforeach
+                            @endif
+                        </div>
                     </div>
+
                  </div>
 
                 @if(isset($check_value))

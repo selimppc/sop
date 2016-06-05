@@ -74,36 +74,36 @@ Route::any('delete-user/{id}', [
 ]);*/
 
 Route::any('forget-password-view', [
-//    'middleware' => 'acl_access:forget-password-view',
+    'middleware' => 'acl_access:forget-password-view',
     'as' => 'forget-password-view',
     'uses' => 'UserController@forget_password_view'
 ]);
 
 Route::any('forget-password', [
-//    'middleware' => 'acl_access:forget-password-view',
+    'middleware' => 'acl_access:forget-password',
     'as' => 'forget-password',
     'uses' => 'UserController@forget_password'
 ]);
 
 Route::any('password-reset-confirm/{reset_password_token}', [
-//    'middleware' => 'acl_access:password-reset-confirm/{reset_password_token}',
+    'middleware' => 'acl_access:password-reset-confirm/{reset_password_token}',
     'as' => 'password-reset-confirm',
     'uses' => 'UserController@password_reset_confirm'
 ]);
 
 Route::any('user-save-new-password',[
-//    'middleware' => 'acl_access:user-save-new-password',
-        'as'=>'user-save-new-password',
-        'uses'=>'UserController@save_new_password']);
+    'middleware' => 'acl_access:user-save-new-password',
+    'as'=>'user-save-new-password',
+    'uses'=>'UserController@save_new_password']);
 
 Route::any('signup', [
-//    'middleware' => 'acl_access:signup',
+    'middleware' => 'acl_access:signup',
     'as' => 'signup',
     'uses' => 'UserController@store_signup_info'
 ]);
 
 Route::get('user-logout', [
-    'middleware' => 'acl_access:user-logout',
+    //'middleware' => 'acl_access:user-logout',
     'as' => 'user-logout',
     'uses' => 'UserController@logout'
 ]);
@@ -326,27 +326,37 @@ Route::any('update-profile-image/{user_image_id}', [
 
     // Currency Routes
     Route::any('view-currency',[
+        'middleware' => 'acl_access:view-currency',
         'as' => 'view-currency',
         'uses' => 'CurrencyController@index'
     ]);
+    Route::any('view-currency-details/{id}',[
+        'middleware' => 'acl_access:view-currency-details/{id}',
+        'as' => 'view-currency-details',
+        'uses' => 'CurrencyController@show'
+    ]);
 
     Route::post('add-currency', [
+        'middleware' => 'acl_access:add-currency',
         'as' => 'add-currency',
         'uses' => 'CurrencyController@store'
     ]);
 
 
     Route::get('edit-currency/{id}', [
+        'middleware' => 'acl_access:edit-currency/{id}',
         'as' => 'edit-currency',
         'uses' => 'CurrencyController@edit'
     ]);
 
     Route::patch('update-currency/{id}', [
+        'middleware' => 'acl_access:update-currency/{id}',
         'as' => 'update-currency',
         'uses' => 'CurrencyController@update'
     ]);
 
     Route::get('delete-currency/{id}', [
+        'middleware' => 'acl_access:delete-currency/{id}',
         'as' => 'delete-currency',
         'uses' => 'CurrencyController@destroy'
     ]);

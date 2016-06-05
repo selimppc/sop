@@ -34,10 +34,16 @@
                                 <tr class="gradeX">
                                     <td>{{ucfirst($currency->title)}}</td>
                                     <td>{{$currency->value}}</td>
+                                    @if(Auth::user()->role_id == '1' )
                                     <td>
                                         <a href="{{ route('edit-currency', $currency->id) }}" class="btn btn-primary btn-xs" data-placement="top" data-content="update"><i class="fa fa-edit"></i></a>
                                         <a href="{{ route('delete-currency', $currency->id) }}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to Delete?')" data-placement="top" data-content="delete"><i class="fa fa-trash-o"></i></a>
                                     </td>
+                                    @else
+                                    <td>
+                                        <a href="{{ route('view-currency-details', $currency->id) }}" class="btn btn-primary btn-xs" data-placement="top" data-content="View"><i class="fa fa-eye"></i></a>
+                                    </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         @endif

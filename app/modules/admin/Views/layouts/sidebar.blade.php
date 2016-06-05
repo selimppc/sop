@@ -19,7 +19,7 @@
 
     <ul class="nav" id="side-menu">
         <li class="active">
-            <a href="{{URL::to('dashboard')}}"> <i class="fa fa-tachometer"></i> <span class="nav-label">Dashboard</span> </a>
+            <a href="{{URL::to('dashboard')}}"><i class="fa fa-tachometer"></i> <span class="nav-label">Dashboard</span> </a>
         </li>
         {{--<li class="active">
             <a href="{{URL::to('bord')}}"> <i class="fa fa-calculator"></i> <span class="nav-label">Calculator</span> </a>
