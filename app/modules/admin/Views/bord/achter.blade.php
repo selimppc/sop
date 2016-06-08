@@ -23,15 +23,23 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-10">
                             {!! Form::label('lengte_bord', 'LENGTE BORD', ['class' => 'control-label']) !!}
                             {!! Form::input('number','lengte_bord',@Input::get('lengte_bord')? Input::get('lengte_bord') : null,['class' => 'form-control','placeholder'=>'Enter lengte bord (numbers only)','required','title'=>'Enter lengte bord']) !!}
                         </div>
+                        <div class="col-sm-2">
+                            {!! Form::label('unit_lengte_bord', 'UNIT', ['class'=>'control-label']) !!}
+                            {!! Form::Select('unit_lengte_bord',array('m'=>'Meter','cm'=>'Centimeter','inch'=>'Inch'),@Input::get('unit_lengte_bord')?Input::get('unit_lengte_bord'):null,['class'=>'form-control']) !!}
+                        </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-10">
                             {!! Form::label('breedte_bord', 'BREEDTE BORD', ['class' => 'control-label']) !!}
                             {!! Form::input('number','breedte_bord',@Input::get('breedte_bord')? Input::get('breedte_bord') : null,['class' => 'form-control','placeholder'=>'Enter breedte bord (numbers only)','required','title'=>'Enter breedte bord']) !!}
+                        </div>
+                        <div class="col-sm-2">
+                            {!! Form::label('unit_breedte_bord','UNIT', ['class'=>'control-label']) !!}
+                            {!! Form::Select('unit_breedte_bord',array('m'=>'Meter','cm'=>'Centimeter','inch'=>'Inch'),@Input::get('unit_breedte_bord')?@Input::get('unit_breedte_bord'):null,['class'=>'form-control']) !!}
                         </div>
                     </div>
                     <div class="row">

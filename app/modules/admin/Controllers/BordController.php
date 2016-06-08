@@ -45,21 +45,41 @@ class BordController extends Controller
 
         $input = $request->all();
 
+        $unit_lengte_tekst = $input['unit_lengte_tekst'];
+
         $tekst = $input['tekst'];
         $letter_hoogte = $input['letter_hoogte'];
-        $lengte_tekst = $input['lengte_tekst'];
+
+        //----------------Lengte Conversion-------------//
+        if($unit_lengte_tekst=="m"){
+            $lengte_tekst = $input['lengte_tekst'];
+        }
+        if($unit_lengte_tekst=="cm"){
+            $lengte_tekst = $input['lengte_tekst']/100;
+        }
+        if($unit_lengte_tekst=="inch"){
+            $lengte_tekst = $input['lengte_tekst']/39.3701;
+        }
+        //$lengte_tekst = $input['lengte_tekst'];
         $model = $input['model'];
 
         $request_model = $request->get ('model');
 
         //print_r($request->get ('model'));exit;
-
+        /*if(!empty($input['bracket'])){
+            print_r($input['bracket']); exit();
+        }
+        else { exit('No data');}*/
         if(isset($input['myCheck'])) {
             $check_value = ($request->get ('myCheck')== "true")? '1' : '0';
             $installment_param['locatie'] = $input['location'];
             $installment_param['achtergrond'] = $input['background'];
             $installment_param['werkhoogte'] = $input['workheight'];
-            $installment_param['bracket'] = $input['bracket'];
+            if(!empty($input['bracket'])) {
+                $installment_param['bracket'] = $input['bracket'];
+            }else{
+                $installment_param['bracket'] = 'Select';
+            }
         }else{
             $installment_param = null;
             $check_value = null;
@@ -84,9 +104,23 @@ class BordController extends Controller
 
         $input = $request->all();
 
+        $unit_lengte_tekst = $input['unit_lengte_tekst'];
+
         $tekst = $input['tekst'];
         $letter_hoogte = $input['letter_hoogte'];
-        $lengte_tekst = $input['lengte_tekst'];
+
+        //-------------Lengte Conversion-------------//
+        if($unit_lengte_tekst=="m"){
+            $lengte_tekst = $input['lengte_tekst'];
+        }
+        if($unit_lengte_tekst=="cm"){
+            $lengte_tekst = $input['lengte_tekst']/100;
+        }
+        if($unit_lengte_tekst=="inch"){
+            $lengte_tekst = $input['lengte_tekst']/39.3701;
+        }
+        //$lengte_tekst = $input['lengte_tekst'];
+
         $materiaal = $input['materiaal'];
         $dikte = $input['dikte'];
 
@@ -99,7 +133,12 @@ class BordController extends Controller
             $installment_param['locatie'] = $input['location'];
             $installment_param['achtergrond'] = $input['background'];
             $installment_param['werkhoogte'] = $input['workheight'];
-            $installment_param['bracket'] = $input['bracket'];
+            //$installment_param['bracket'] = $input['bracket'];
+            if(!empty($input['bracket'])) {
+                $installment_param['bracket'] = $input['bracket'];
+            }else{
+                $installment_param['bracket'] = 'Select';
+            }
         }else{
             $installment_param = null;
             $check_value = null;
@@ -120,10 +159,37 @@ class BordController extends Controller
 
     public function store_achtergrond(Request $request){
         $input = $request->all();
+
+        $unit_lengte_bord = $input['unit_lengte_bord'];
+        $unit_breedte_bord = $input['unit_breedte_bord'];
+
         $pageTitle = 'Achtergrond Bord';
         $shoort_bord = $input['shoort_bord'];
-        $lengte_bord = $input['lengte_bord'];
-        $breedte_bord =$input['breedte_bord'];
+
+        //-----------Lengte Conversion-----------//
+        if($unit_lengte_bord=="m"){
+            $lengte_bord = $input['lengte_bord'];
+        }
+        if($unit_lengte_bord=="cm"){
+            $lengte_bord = $input['lengte_bord']/100;
+        }
+        if($unit_lengte_bord=="inch"){
+            $lengte_bord = $input['lengte_bord']/39.3701;
+        }
+        //$lengte_bord = $input['lengte_bord'];
+
+        //-----------Breedte Conversion----------//
+        if($unit_breedte_bord=="m"){
+            $breedte_bord =$input['breedte_bord'];
+        }
+        if($unit_breedte_bord=="cm"){
+            $breedte_bord =$input['breedte_bord']/100;
+        }
+        if($unit_breedte_bord=="inch"){
+            $breedte_bord =$input['breedte_bord']/39.3701;
+        }
+        //$breedte_bord =$input['breedte_bord'];
+
         $acm_spuiten = $input['acm_spuiten'];
 
         if(isset($input['myCheck'])) {
@@ -154,10 +220,39 @@ class BordController extends Controller
         //exit('jgj');
         $input = $request->all();
 
+        $unit_lengte = $input['unit_lengte'];
+        $unit_breedte = $input['unit_breedte'];
+        //print_r($unit); exit();
+
         $materiaal_input = $input['materiaal'];
         $enkel_bubbel_input = $input['enkel_dubble'];
-        $lengte = $input['lengte'];
-        $breedte = $input['breedte'];
+
+        //--------------Lengte Conversion-----------//
+        if($unit_lengte=="m"){
+            $lengte = $input['lengte'];
+        }
+        if($unit_lengte=="cm"){
+            $lengte = $input['lengte']/100;
+        }
+        if($unit_lengte=="inch"){
+            $lengte = $input['lengte']/39.3701;
+        }
+        //$lengte = $input['lengte'];
+
+
+        //---------------Breedte Conversion-------------//
+        if($unit_breedte=="m"){
+            $breedte = $input['breedte'];
+        }
+        if($unit_breedte=="cm"){
+            $breedte = $input['breedte']/100;
+        }
+        if($unit_breedte=="inch"){
+            $breedte = $input['breedte']/39.3701;
+        }
+        //$breedte = $input['breedte'];
+
+
         $model = $input['model'];
 
         $request_model = $request->get ('model');
@@ -167,7 +262,12 @@ class BordController extends Controller
             $installment_param['locatie'] = $input['location'];
             $installment_param['achtergrond'] = $input['background'];
             $installment_param['werkhoogte'] = $input['workheight'];
-            $installment_param['bracket'] = $input['bracket'];
+            //$installment_param['bracket'] = $input['bracket'];
+            if(!empty($input['bracket'])) {
+                $installment_param['bracket'] = $input['bracket'];
+            }else{
+                $installment_param['bracket'] = 'Select';
+            }
         }else{
             $installment_param = null;
             $check_value = null;
