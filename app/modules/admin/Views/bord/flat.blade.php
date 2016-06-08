@@ -48,7 +48,7 @@
                             {!! Form::input('number','lengte_tekst',@Input::get('lengte_tekst')? Input::get('lengte_tekst') : null,['class' => 'form-control','id'=>'lengte-tekst','required']) !!}
                         </div>
                         <div class="col-sm-2">
-                            {!! Form::label('unit_lengte_tekst','UNIT',['class'=>'coltrol-label']) !!}
+                            {!! Form::label('&nbsp;','',['class'=>'coltrol-label']) !!}
                             {!! Form::Select('unit_lengte_tekst',array('m'=>'Meter','cm'=>'Centimeter','inch'=>'Inch'),@Input::get('unit_lengte_tekst')?@Input::get('unit_lengte_tekst'):null,['class'=>'form-control']) !!}
                         </div>
                     </div>

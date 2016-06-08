@@ -34,7 +34,7 @@
                             {!! Form::input('number','lengte',@Input::get('lengte')? Input::get('lengte') : null,['class' => 'form-control','placeholder'=>'Enter lengte (numbers only)','required','title'=>'Enter lengte']) !!}
                         </div>
                         <div class="col-sm-2">
-                            {!! Form::label('unit_lengte', 'UNIT', ['class' => 'control-label']) !!}
+                            {!! Form::label('&nbsp;', '', ['class' => 'control-label']) !!}
                             {!! Form::Select('unit_lengte',array('m'=>'Meter','cm'=>'Centimeter','inch'=>'Inch' ),@Input::get('unit_lengte')?Input::get('unit_lengte'): null,['class'=>'form-control', 'title'=>'Select Unit']) !!}
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                             {!! Form::input('number','breedte',@Input::get('breedte')? Input::get('breedte') : null,['class' => 'form-control','placeholder'=>'Enter breedte (numbers only)','required','title'=>'Enter breedte']) !!}
                         </div>
                         <div class="col-sm-2">
-                            {!! Form::label('unit_breedte', 'UNIT', ['class' => 'control-label']) !!}
+                            {!! Form::label('&nbsp;', '', ['class' => 'control-label']) !!}
                             {!! Form::Select('unit_breedte',array('m'=>'Meter','cm'=>'Centimeter','inch'=>'Inch' ),@Input::get('unit_breedte')?Input::get('unit_breedte'): null,['class'=>'form-control', 'title'=>'Select Unit']) !!}
                         </div>
                     </div>
