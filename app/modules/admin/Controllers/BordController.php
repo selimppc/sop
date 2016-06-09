@@ -46,11 +46,25 @@ class BordController extends Controller
         $input = $request->all();
 
         $unit_lengte_tekst = $input['unit_lengte_tekst'];
+        $unit_letter_hoogte = $input['unit_letter_hoogte'];
 
         $tekst = $input['tekst'];
-        $letter_hoogte = $input['letter_hoogte'];
 
-        //----------------Lengte Conversion-------------//
+        //exit($unit_letter_hoogte);
+
+
+        //------------------ HOOGTE Conversion------------//
+        if($unit_letter_hoogte=="m"){
+            $letter_hoogte = $input['letter_hoogte'];
+        }
+        if($unit_letter_hoogte=="cm"){
+            $letter_hoogte = $input['letter_hoogte']/100;
+        }
+        if($unit_letter_hoogte=="inch"){
+            $letter_hoogte = $input['letter_hoogte']/39.3701;
+        }
+
+        //----------------LENGTE Conversion-------------//
         if($unit_lengte_tekst=="m"){
             $lengte_tekst = $input['lengte_tekst'];
         }
@@ -105,9 +119,24 @@ class BordController extends Controller
         $input = $request->all();
 
         $unit_lengte_tekst = $input['unit_lengte_tekst'];
+        $unit_letter_hoogte = $input['unit_letter_hoogte'];
+
+        //print_r($unit_letter_hoogte); exit();
 
         $tekst = $input['tekst'];
-        $letter_hoogte = $input['letter_hoogte'];
+
+        // -----------------HOOGTE Conversion---------//
+        if($unit_letter_hoogte=="m"){
+            $letter_hoogte = $input['letter_hoogte'];
+        }
+        if($unit_letter_hoogte=="cm"){
+            $letter_hoogte = $input['letter_hoogte']/100;
+        }
+        if($unit_letter_hoogte=="inch"){
+            $letter_hoogte = $input['letter_hoogte']/39.3701;
+        }
+        //$letter_hoogte = $input['letter_hoogte'];
+
 
         //-------------Lengte Conversion-------------//
         if($unit_lengte_tekst=="m"){

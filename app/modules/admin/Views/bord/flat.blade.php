@@ -37,9 +37,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-10">
                             {!! Form::label('letter_hoogte', 'LETTER HOOGTE', ['class' => 'control-label']) !!}
                             {!! Form::input('number', 'letter_hoogte', @Input::get('letter_hoogte')? Input::get('letter_hoogte') : null, ['class' => 'form-control','placeholder'=>'enter letter hoogte (positive numbers only)','title'=>'enter letter hoogte','required','id'=>'letter-hoogte','onclick'=>"Sum();",'min'=>"0.0", "step"=>"0.1",'onkeyup'=>"Sum();"]) !!}
+                        </div>
+                        <div class="col-sm-2">
+                            {!! Form::label('&nbsp;','',['class'=>'control-label']) !!}
+                            {!! Form::Select('unit_letter_hoogte',array('m'=>'Meter','cm'=>'Centimeter','inch'=>'Inch'),@Input::get('unit_letter_hoogte')?@Input::get('unit_letter_hoogte'):null,['class'=>'form-control']) !!}
                         </div>
                     </div>
                     <div class="row">
