@@ -43,10 +43,10 @@
                             {!! Form::label('breedte', 'BREEDTE', ['class' => 'control-label']) !!}
                             {!! Form::input('number','breedte',@Input::get('breedte')? Input::get('breedte') : null,['class' => 'form-control','placeholder'=>'Enter breedte (numbers only)','required','title'=>'Enter breedte']) !!}
                         </div>
-                        <div class="col-sm-2">
+                        {{--<div class="col-sm-2">
                             {!! Form::label('&nbsp;', '', ['class' => 'control-label']) !!}
                             {!! Form::Select('unit_breedte',array('m'=>'Meter','cm'=>'Centimeter','inch'=>'Inch' ),@Input::get('unit_breedte')?Input::get('unit_breedte'): null,['class'=>'form-control', 'title'=>'Select Unit']) !!}
-                        </div>
+                        </div>--}}
                     </div>
                     <div class="row">
                         <div class="col-sm-12">

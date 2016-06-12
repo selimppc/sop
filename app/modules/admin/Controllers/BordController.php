@@ -45,7 +45,7 @@ class BordController extends Controller
 
         $input = $request->all();
 
-        $unit_lengte_tekst = $input['unit_lengte_tekst'];
+        /*$unit_lengte_tekst = $input['unit_lengte_tekst'];*/
         $unit_letter_hoogte = $input['unit_letter_hoogte'];
 
         $tekst = $input['tekst'];
@@ -53,19 +53,22 @@ class BordController extends Controller
         //exit($unit_letter_hoogte);
 
 
-        //------------------ HOOGTE Conversion------------//
+        //------------------ HOOGTE And Lengte Conversion------------//
         if($unit_letter_hoogte=="m"){
             $letter_hoogte = $input['letter_hoogte'];
+            $lengte_tekst = $input['lengte_tekst'];
         }
         if($unit_letter_hoogte=="cm"){
             $letter_hoogte = $input['letter_hoogte']/100;
+            $lengte_tekst = $input['lengte_tekst']/100;
         }
         if($unit_letter_hoogte=="inch"){
             $letter_hoogte = $input['letter_hoogte']/39.3701;
+            $lengte_tekst = $input['lengte_tekst']/39.3701;
         }
 
         //----------------LENGTE Conversion-------------//
-        if($unit_lengte_tekst=="m"){
+        /*if($unit_lengte_tekst=="m"){
             $lengte_tekst = $input['lengte_tekst'];
         }
         if($unit_lengte_tekst=="cm"){
@@ -73,7 +76,7 @@ class BordController extends Controller
         }
         if($unit_lengte_tekst=="inch"){
             $lengte_tekst = $input['lengte_tekst']/39.3701;
-        }
+        }*/
         //$lengte_tekst = $input['lengte_tekst'];
         $model = $input['model'];
 
@@ -118,28 +121,31 @@ class BordController extends Controller
 
         $input = $request->all();
 
-        $unit_lengte_tekst = $input['unit_lengte_tekst'];
+        /*$unit_lengte_tekst = $input['unit_lengte_tekst'];*/
         $unit_letter_hoogte = $input['unit_letter_hoogte'];
 
         //print_r($unit_letter_hoogte); exit();
 
         $tekst = $input['tekst'];
 
-        // -----------------HOOGTE Conversion---------//
+        // -----------------HOOGTE And Lengte Conversion---------//
         if($unit_letter_hoogte=="m"){
             $letter_hoogte = $input['letter_hoogte'];
+            $lengte_tekst = $input['lengte_tekst'];
         }
         if($unit_letter_hoogte=="cm"){
             $letter_hoogte = $input['letter_hoogte']/100;
+            $lengte_tekst = $input['lengte_tekst']/100;
         }
         if($unit_letter_hoogte=="inch"){
             $letter_hoogte = $input['letter_hoogte']/39.3701;
+            $lengte_tekst = $input['lengte_tekst']/39.3701;
         }
         //$letter_hoogte = $input['letter_hoogte'];
 
 
         //-------------Lengte Conversion-------------//
-        if($unit_lengte_tekst=="m"){
+        /*if($unit_lengte_tekst=="m"){
             $lengte_tekst = $input['lengte_tekst'];
         }
         if($unit_lengte_tekst=="cm"){
@@ -147,7 +153,7 @@ class BordController extends Controller
         }
         if($unit_lengte_tekst=="inch"){
             $lengte_tekst = $input['lengte_tekst']/39.3701;
-        }
+        }*/
         //$lengte_tekst = $input['lengte_tekst'];
 
         $materiaal = $input['materiaal'];
@@ -190,25 +196,29 @@ class BordController extends Controller
         $input = $request->all();
 
         $unit_lengte_bord = $input['unit_lengte_bord'];
-        $unit_breedte_bord = $input['unit_breedte_bord'];
+        /*$unit_breedte_bord = $input['unit_breedte_bord'];*/
 
         $pageTitle = 'Achtergrond Bord';
         $shoort_bord = $input['shoort_bord'];
 
-        //-----------Lengte Conversion-----------//
+        //-----------Lengte and Breedte Conversion-----------//
         if($unit_lengte_bord=="m"){
             $lengte_bord = $input['lengte_bord'];
+            $breedte_bord =$input['breedte_bord'];
         }
         if($unit_lengte_bord=="cm"){
             $lengte_bord = $input['lengte_bord']/100;
+            $breedte_bord =$input['breedte_bord']/100;
         }
         if($unit_lengte_bord=="inch"){
             $lengte_bord = $input['lengte_bord']/39.3701;
+            $breedte_bord =$input['breedte_bord']/39.3701;
+
         }
         //$lengte_bord = $input['lengte_bord'];
 
         //-----------Breedte Conversion----------//
-        if($unit_breedte_bord=="m"){
+        /*if($unit_breedte_bord=="m"){
             $breedte_bord =$input['breedte_bord'];
         }
         if($unit_breedte_bord=="cm"){
@@ -216,7 +226,7 @@ class BordController extends Controller
         }
         if($unit_breedte_bord=="inch"){
             $breedte_bord =$input['breedte_bord']/39.3701;
-        }
+        }*/
         //$breedte_bord =$input['breedte_bord'];
 
         $acm_spuiten = $input['acm_spuiten'];
@@ -250,27 +260,29 @@ class BordController extends Controller
         $input = $request->all();
 
         $unit_lengte = $input['unit_lengte'];
-        $unit_breedte = $input['unit_breedte'];
-        //print_r($unit); exit();
+        /*$unit_breedte = $input['unit_breedte'];*/
 
         $materiaal_input = $input['materiaal'];
         $enkel_bubbel_input = $input['enkel_dubble'];
 
-        //--------------Lengte Conversion-----------//
+        //--------------Lengte and Breedte Conversion-----------//
         if($unit_lengte=="m"){
             $lengte = $input['lengte'];
+            $breedte = $input['breedte'];
         }
         if($unit_lengte=="cm"){
             $lengte = $input['lengte']/100;
+            $breedte = $input['breedte']/100;
         }
         if($unit_lengte=="inch"){
             $lengte = $input['lengte']/39.3701;
+            $breedte = $input['breedte']/39.3701;
         }
         //$lengte = $input['lengte'];
 
 
         //---------------Breedte Conversion-------------//
-        if($unit_breedte=="m"){
+        /*if($unit_breedte=="m"){
             $breedte = $input['breedte'];
         }
         if($unit_breedte=="cm"){
@@ -278,12 +290,10 @@ class BordController extends Controller
         }
         if($unit_breedte=="inch"){
             $breedte = $input['breedte']/39.3701;
-        }
+        }*/
         //$breedte = $input['breedte'];
 
-
         $model = $input['model'];
-
         $request_model = $request->get ('model');
 
         if(isset($input['myCheck'])) {

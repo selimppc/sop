@@ -37,10 +37,10 @@
                             {!! Form::label('breedte_bord', 'BREEDTE BORD', ['class' => 'control-label']) !!}
                             {!! Form::input('number','breedte_bord',@Input::get('breedte_bord')? Input::get('breedte_bord') : null,['class' => 'form-control','placeholder'=>'Enter breedte bord (numbers only)','required','title'=>'Enter breedte bord']) !!}
                         </div>
-                        <div class="col-sm-2">
+                        {{--<div class="col-sm-2">
                             {!! Form::label('&nbsp;','', ['class'=>'control-label']) !!}
                             {!! Form::Select('unit_breedte_bord',array('m'=>'Meter','cm'=>'Centimeter','inch'=>'Inch'),@Input::get('unit_breedte_bord')?@Input::get('unit_breedte_bord'):null,['class'=>'form-control']) !!}
-                        </div>
+                        </div>--}}
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
