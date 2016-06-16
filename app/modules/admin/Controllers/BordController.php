@@ -395,6 +395,7 @@ class BordController extends Controller
     }
 
     public function store_pad(Request $request){
+        exit('Under Construction !');
         $input = $request->all();
 
         //$unit_lengte = $input['unit_lengte'];
