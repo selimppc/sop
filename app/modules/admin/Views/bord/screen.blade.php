@@ -22,15 +22,11 @@
                             {!! Form::label('aantalshirts', 'Aantal shirts', ['class' => 'control-label']) !!}
                             {!! Form::input('number','aantalshirts',@Input::get('aantalshirts')? Input::get('aantalshirts') : null,['class' => 'form-control','placeholder'=>'Enter Aantal shirts (numbers only)','required','title'=>'Enter Aantal shirts']) !!}
                         </div>
-                        {{--<div class="col-sm-2">
-                            {!! Form::label('&nbsp;', '', ['class' => 'control-label']) !!}
-                            {!! Form::Select('unit_lengte',array('m'=>'Meter','cm'=>'Centimeter','inch'=>'Inch' ),@Input::get('unit_lengte')?Input::get('unit_lengte'): null,['class'=>'form-control', 'title'=>'Select Unit']) !!}
-                        </div>--}}
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             {!! Form::label('primary', 'Primary ', ['class' => 'control-label']) !!}
-                            {!! Form::Select('primary',array(''=>'Select','1'=>'Yes','2'=>'No' ),@Input::get('primary')?Input::get('primary'): null,['class'=>'form-control', 'title'=>'Select Primary']) !!}
+                            {!! Form::Select('primary',array(''=>'Select','y'=>'Yes','n'=>'No' ),@Input::get('primary')?Input::get('primary'): null,['class'=>'form-control', 'title'=>'Select Primary']) !!}
                         </div>
                     </div>
                     <div class="row" id="primary_child">
@@ -43,7 +39,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             {!! Form::label('secondary', 'Secondary ', ['class' => 'control-label']) !!}
-                            {!! Form::Select('secondary',array(''=>'Select','1'=>'Yes','2'=>'No' ),@Input::get('secondary')?Input::get('secondary'): null,['class'=>'form-control', 'title'=>'Select Secondary']) !!}
+                            {!! Form::Select('secondary',array(''=>'Select','y'=>'Yes','n'=>'No' ),@Input::get('secondary')?Input::get('secondary'): null,['class'=>'form-control', 'title'=>'Select Secondary']) !!}
                         </div>
                     </div>
                     <div class="row" id="secondary_child">
