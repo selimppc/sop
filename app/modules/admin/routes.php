@@ -99,6 +99,28 @@ Route::any('homer', [
         'uses' => 'BordController@store_lichtbakken'
     ]);
 
+    Route::any('screen', [
+        'middleware'=> 'acl_access:screen',
+        'as' => 'screen',
+        'uses' => 'BordController@screen'
+    ]);
+    Route::any('store-screen', [
+        'middleware'=> 'acl_access:store-screen',
+        'as' => 'store-screen',
+        'uses' => 'BordController@store_screen'
+    ]);
+
+    Route::any('pad', [
+        'middleware'=> 'acl_access:pad',
+        'as' => 'pad',
+        'uses' => 'BordController@pad'
+    ]);
+    Route::any('store-pad', [
+        'middleware'=> 'acl_access:store-pad',
+        'as' => 'store-pad',
+        'uses' => 'BordController@store_pad'
+    ]);
+
     /**Menu Panel**/
 
     Route::get("menu-panel", [

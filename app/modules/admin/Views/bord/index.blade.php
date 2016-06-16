@@ -62,6 +62,36 @@
             </div>
         </div>
     </div>
+
+    {{--screenprint--}}
+    <div class="col-lg-4">
+        <div class="hpanel">
+            <div class="panel-body text-center">
+                <br>
+                <a class="" data-toggle="modal" href="{{route('screen')}}" data-placement="top" data-content="lichtbakken entry form" style="margin-left:1%"><i class="screen fa fa-file-text"></i>
+                    <br>
+                    <span style="font-size:medium">Screen Print</span>
+                </a>
+                <br>
+            </div>
+        </div>
+    </div>
+
+    {{--padprint--}}
+    <div class="col-lg-4">
+        <div class="hpanel">
+            <div class="panel-body text-center">
+                <br>
+                <a class="" data-toggle="modal" href="{{route('pad')}}" data-placement="top" data-content="lichtbakken entry form" style="margin-left:1%"><i class="pad fa fa-file-text"></i>
+                    <br>
+                    <span style="font-size:medium">Pad Print</span>
+                </a>
+                <br>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 <!-- page end-->
 

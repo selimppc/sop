@@ -320,4 +320,28 @@ class BordController extends Controller
         return view('admin::bord.licht',['data'=>$data, 'inst_list' => $inst_list, 'check_value'=>$check_value,'request_model'=>$request_model]);
 
     }
+
+    public function screen(){
+
+        $pageTitle = 'Screen';
+        $inst_list = \Bord::getInsList();
+
+        return view('admin::bord.screen',['pageTitle'=>$pageTitle,'inst_list'=>$inst_list]);
+    }
+
+    public function store_screen(Request $request){
+
+    }
+
+    public function pad(){
+
+        $pageTitle = 'Pad';
+        $inst_list = \Bord::getInsList();
+
+        return view('admin::bord.pad',['pageTitle'=>$pageTitle,'inst_list'=>$inst_list]);
+    }
+
+    public function store_pad(Request $request){
+
+    }
 }
