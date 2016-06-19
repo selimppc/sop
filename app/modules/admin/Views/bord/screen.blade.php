@@ -32,7 +32,7 @@
                     <div class="row" id="primary_child">
                         <div class="col-sm-11 col-sm-offset-1">
                             {!! Form::label('aantalkleuren_primary', 'Aantal kleuren ', ['class' => 'control-label']) !!}
-                            {!! Form::Select('aantalkleuren_primary',array(''=>'Select','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','fullcollor'=>'Fullcollor' ),@Input::get('aantalkleuren_primary')?Input::get('aantalkleuren_primary'): null,['class'=>'form-control', 'title'=>'Select Primary']) !!}
+                            {!! Form::Select('aantalkleuren_primary',array(''=>'Select','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'Fullcollor' ),@Input::get('aantalkleuren_primary')?Input::get('aantalkleuren_primary'): null,['class'=>'form-control', 'title'=>'Select Primary']) !!}
                         </div>
                     </div>
 
@@ -45,14 +45,14 @@
                     <div class="row" id="secondary_child">
                         <div class="col-sm-11 col-sm-offset-1">
                             {!! Form::label('aantalkleuren_secondary', 'Aantal kleuren ', ['class' => 'control-label']) !!}
-                            {!! Form::Select('aantalkleuren_secondary',array(''=>'Select','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','fullcollor'=>'Fullcollor' ),@Input::get('aantalkleuren_secondary')?Input::get('aantalkleuren_secondary'): null,['class'=>'form-control', 'title'=>'Select Secondary']) !!}
+                            {!! Form::Select('aantalkleuren_secondary',array(''=>'Select','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'Fullcollor' ),@Input::get('aantalkleuren_secondary')?Input::get('aantalkleuren_secondary'): null,['class'=>'form-control', 'title'=>'Select Secondary']) !!}
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-sm-12">
                             {!! Form::label('extraprints', 'Extra prints ', ['class' => 'control-label']) !!}
-                            {!! Form::Select('extraprints',array(''=>'Select','Left sleeve'=>'Left sleeve','Right sleeve'=>'Right sleeve','Puff effect'=>'Puff effect','Umbrella'=>'Umbrella','Pants'=>'Pants','Flags'=>'Flags'),@Input::get('extraprints')?Input::get('extraprints'): null,['class'=>'form-control', 'title'=>'Select Extra prints','required']) !!}
+                            {!! Form::Select('extraprints',array(''=>'Select','Left sleeve'=>'Left sleeve','Right sleeve'=>'Right sleeve','Puff effect'=>'Puff effect','Umbrella'=>'Umbrella','Pants'=>'Pants','Flags'=>'Flags'),@Input::get('extraprints')?Input::get('extraprints'): null,['class'=>'form-control', 'title'=>'Select Extra prints']) !!}
                         </div>
                     </div>
                     @include('admin::bord.scripts.pad_and_screen_script')
@@ -75,8 +75,49 @@
         </div>
     </div>
 </div>
-
 @if(isset($data))
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <span class="panel-title"><h5 class="text-center">TOTAAL</h5></span>
+            </div>
+            <div class="panel-body">
+                <div class="table-primary">
+                    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="jq-datatables-example">
+                        <tr>
+                            <th></th>
+                            <td>SRD &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                                {{isset($data['final_amount']['srd']['price'])?number_format($data['final_amount']['srd']['price'], 2, '.', ''):''}}
+                            </td>
+                            <td>$ &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                                {{isset($data['final_amount']['usd']['price'])?number_format($data['final_amount']['usd']['price'], 2, '.', ''):''}}
+                            </td>
+                            <td>&euro; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                {{isset($data['final_amount']['euro']['price'])?number_format($data['final_amount']['euro']['price'], 2, '.', ''):''}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Price per Shirt (Includes Screen Prep+Artwork)</th>
+                            <td>{{isset($data['E25'])?number_format($data['E25'], 2, '.', ''):''}}</td>
+                            <td>{{isset($data['E26'])?number_format($data['E26'], 2, '.', ''):''}}</td>
+                            <td>{{isset($data['E27'])?number_format($data['E27'], 2, '.', ''):''}}</td>
+                        </tr>
+                        <tr>
+                            <th>Price per Shirt (Incl. Screen Prep+Artwork+Sales Tax)</th>
+                            <td>{{isset($data['E31'])?number_format($data['E31'], 2, '.', ''):''}}</td>
+                            <td>{{isset($data['E32'])?number_format($data['E32'], 2, '.', ''):''}}</td>
+                            <td>{{isset($data['E33'])?number_format($data['E33'], 2, '.', ''):''}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+@endif
+{{--@if(isset($data))
     <div class="row">
         <div class="col-sm-6">
             <div class="panel">
@@ -258,8 +299,8 @@
             </div>
     </div>
     @endif
-    {{----------------------Total------------------------}}
-    @endif
+    --------------------Total----------------------
+    @endif--}}
 
 
 

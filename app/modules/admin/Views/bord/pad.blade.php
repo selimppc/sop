@@ -26,7 +26,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             {!! Form::label('primary', 'Primary ', ['class' => 'control-label']) !!}
-                            {!! Form::Select('primary',array(''=>'Select','1'=>'Yes','2'=>'No' ),@Input::get('primary')?Input::get('primary'): null,['class'=>'form-control', 'title'=>'Select Primary']) !!}
+                            {!! Form::Select('primary',array(''=>'Select','y'=>'Yes','n'=>'No' ),@Input::get('primary')?Input::get('primary'): null,['class'=>'form-control', 'title'=>'Select Primary']) !!}
                         </div>
                     </div>
                     <div class="row" id="primary_child">
@@ -39,7 +39,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             {!! Form::label('secondary', 'Secondary ', ['class' => 'control-label']) !!}
-                            {!! Form::Select('secondary',array(''=>'Select','1'=>'Yes','2'=>'No' ),@Input::get('secondary')?Input::get('secondary'): null,['class'=>'form-control', 'title'=>'Select Secondary']) !!}
+                            {!! Form::Select('secondary',array(''=>'Select','y'=>'Yes','n'=>'No' ),@Input::get('secondary')?Input::get('secondary'): null,['class'=>'form-control', 'title'=>'Select Secondary']) !!}
                         </div>
                     </div>
                     <div class="row" id="secondary_child">
@@ -48,13 +48,6 @@
                             {!! Form::Select('aantalkleuren_secondary',array(''=>'Select','1'=>'1','2'=>'2','3'=>'3','4'=>'4'),@Input::get('aantalkleuren_secondary')?Input::get('aantalkleuren_secondary'): null,['class'=>'form-control', 'title'=>'Select Secondary']) !!}
                         </div>
                     </div>
-
-                    {{--<div class="row">
-                        <div class="col-sm-12">
-                            {!! Form::label('extraprints', 'Extra prints ', ['class' => 'control-label']) !!}
-                            {!! Form::Select('extraprints',array(''=>'Select','Left sleeve'=>'Left sleeve','Right sleeve'=>'Right sleeve','Puff effect'=>'Puff effect','Umbrella'=>'Umbrella','Pants'=>'Pants','Flags'=>'Flags'),@Input::get('extraprints')?Input::get('extraprints'): null,['class'=>'form-control', 'title'=>'Select Extra prints','required']) !!}
-                        </div>
-                    </div>--}}
                     @include('admin::bord.scripts.pad_and_screen_script')
                 </div>
 
@@ -74,6 +67,52 @@
         </div>
     </div>
 </div>
+
+@if(isset($data))
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <span class="panel-title"><h5 class="text-center">TOTAAL</h5></span>
+                </div>
+                <div class="panel-body">
+                    <div class="table-primary">
+                        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="jq-datatables-example">
+                            <tr>
+                                <th></th>
+                                <td>SRD &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                                    {{isset($data['final_amount']['srd']['price'])?number_format($data['final_amount']['srd']['price'], 2, '.', ''):''}}
+                                </td>
+                                <td>$ &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                                    {{isset($data['final_amount']['usd']['price'])?number_format($data['final_amount']['usd']['price'], 2, '.', ''):''}}
+                                </td>
+                                <td>&euro; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {{isset($data['final_amount']['euro']['price'])?number_format($data['final_amount']['euro']['price'], 2, '.', ''):''}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Price per Shirt (Includes Screen Prep+Artwork)</th>
+                                <td>{{isset($data['G25'])?number_format($data['G25'], 2, '.', ''):''}}</td>
+                                <td>{{isset($data['G26'])?number_format($data['G26'], 2, '.', ''):''}}</td>
+                                <td>{{isset($data['G27'])?number_format($data['G27'], 2, '.', ''):''}}</td>
+                            </tr>
+                            <tr>
+                                <th>Price per Shirt (Incl. Screen Prep+Artwork+Sales Tax)</th>
+                                <td>{{isset($data['G31'])?number_format($data['G31'], 2, '.', ''):''}}</td>
+                                <td>{{isset($data['G32'])?number_format($data['G32'], 2, '.', ''):''}}</td>
+                                <td>{{isset($data['G33'])?number_format($data['G33'], 2, '.', ''):''}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+@endif
+
+
+{{--
 
 @if(isset($data))
     <div class="row">
@@ -257,9 +296,12 @@
             </div>
     </div>
     @endif
-    {{----------------------Total------------------------}}
+    --}}
+{{----------------------Total------------------------}}{{--
+
     @endif
 
+--}}
 
 
             <!-- page end-->

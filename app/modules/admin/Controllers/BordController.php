@@ -356,29 +356,9 @@ class BordController extends Controller
         }
         $extraprints = $input['extraprints'];
 
-        //$model = $input['model'];
-        //$request_model = $request->get ('model');
-
-        /*if(isset($input['myCheck'])) {
-            $check_value = ($request->get ('myCheck')== "true")? '1' : '0';
-            $installment_param['locatie'] = $input['location'];
-            $installment_param['achtergrond'] = $input['background'];
-            $installment_param['werkhoogte'] = $input['workheight'];
-            //$installment_param['bracket'] = $input['bracket'];
-            if(!empty($input['bracket'])) {
-                $installment_param['bracket'] = $input['bracket'];
-            }else{
-                $installment_param['bracket'] = 'Select';
-            }
-        }else{
-            $installment_param = null;
-            $check_value = null;
-        }*/
-
         $data = Screenprint::calculation_screen($aantalshirts,$primary,$secondary,$aantalkleuren_primary,$aantalkleuren_secondary,$extraprints);
-        print_r($data); exit();
+        //print_r($data); exit();
 
-        //print_r($data);exit;
         $inst_list = \Bord::getInsList();
 
         //return view('admin::bord.screen',['data'=>$data, 'inst_list' => $inst_list, 'check_value'=>$check_value,'request_model'=>$request_model]);
@@ -395,44 +375,38 @@ class BordController extends Controller
     }
 
     public function store_pad(Request $request){
-        exit('Under Construction !');
+        //exit('Under Construction !');
         $input = $request->all();
 
-        //$unit_lengte = $input['unit_lengte'];
-        /*$unit_breedte = $input['unit_breedte'];*/
+        $aantalitems = $input['aantalitems'];
+        $primary = $input['primary'];
+        $aantalkleuren_primary = null;
+        $aantalkleuren_secondary = null;
 
-        $materiaal_input = $input['materiaal'];
-        $enkel_bubbel_input = $input['enkel_dubble'];
-
-
-        $lengte = $input['lengte'];
-        $breedte = $input['breedte'];
-
-        $model = $input['model'];
-        $request_model = $request->get ('model');
-
-        if(isset($input['myCheck'])) {
-            $check_value = ($request->get ('myCheck')== "true")? '1' : '0';
-            $installment_param['locatie'] = $input['location'];
-            $installment_param['achtergrond'] = $input['background'];
-            $installment_param['werkhoogte'] = $input['workheight'];
-            //$installment_param['bracket'] = $input['bracket'];
-            if(!empty($input['bracket'])) {
-                $installment_param['bracket'] = $input['bracket'];
+        if(!empty($primary)) {
+            if ($primary == 'y') {
+                $aantalkleuren_primary = $input['aantalkleuren_primary'];
             }else{
-                $installment_param['bracket'] = 'Select';
+                $aantalkleuren_primary = null;
             }
-        }else{
-            $installment_param = null;
-            $check_value = null;
         }
 
-        $data = Screenprint::calculation_screen($materiaal_input,$enkel_bubbel_input,$lengte,$breedte,$model, $installment_param);
+        $secondary = $input['secondary'];
+        if(!empty($secondary)){
+            if($secondary == 'y'){
+                $aantalkleuren_secondary = $input['aantalkleuren_secondary'];
+            }else{
+                $aantalkleuren_secondary = null;
+            }
+        }
 
-        //print_r($data);exit;
+        $data = Padprint::calculation_pad($aantalitems,$primary,$aantalkleuren_primary,$secondary,$aantalkleuren_secondary);
+        //echo "Under Construction !<br>";
+        //print_r($data); exit();
+
         $inst_list = \Bord::getInsList();
 
-        return view('admin::bord.licht',['data'=>$data, 'inst_list' => $inst_list, 'check_value'=>$check_value,'request_model'=>$request_model]);
+        return view('admin::bord.pad',['data'=>$data, 'inst_list' => $inst_list]);
 
     }
 }
