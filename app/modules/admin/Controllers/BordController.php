@@ -354,7 +354,16 @@ class BordController extends Controller
                 $aantalkleuren_secondary = null;
             }
         }
-        $extraprints = $input['extraprints'];
+
+        $extraprints = Input::get('extraprints');
+
+        if(is_array($extraprints))
+        {
+            $extraprints = $extraprints;
+        }else{
+            $extraprints = '';
+        }
+
 
         $data = Screenprint::calculation_screen($aantalshirts,$primary,$secondary,$aantalkleuren_primary,$aantalkleuren_secondary,$extraprints);
         //print_r($data); exit();

@@ -52,7 +52,26 @@
                     <div class="row">
                         <div class="col-sm-12">
                             {!! Form::label('extraprints', 'Extra prints ', ['class' => 'control-label']) !!}
-                            {!! Form::Select('extraprints',array(''=>'Select','Left sleeve'=>'Left sleeve','Right sleeve'=>'Right sleeve','Puff effect'=>'Puff effect','Umbrella'=>'Umbrella','Pants'=>'Pants','Flags'=>'Flags'),@Input::get('extraprints')?Input::get('extraprints'): null,['class'=>'form-control', 'title'=>'Select Extra prints']) !!}
+                            {{--{!! Form::Select('extraprints',array(''=>'Select','Left sleeve'=>'Left sleeve','Right sleeve'=>'Right sleeve','Puff effect'=>'Puff effect','Umbrella'=>'Umbrella','Pants'=>'Pants','Flags'=>'Flags'),@Input::get('extraprints')?Input::get('extraprints'): null,['class'=>'form-control', 'title'=>'Select Extra prints']) !!}--}}
+                            {!! Form::checkbox('extraprints[]', 'left_sleeve', null, ['id'=>'a','class' => 'checkbox-inline']) !!}Left sleeve
+                            {!! Form::checkbox('extraprints[]', 'right_sleeve', null, ['id'=>'b','class' => 'checkbox-inline']) !!}Right sleeve
+                            {!! Form::checkbox('extraprints[]', 'puff_effect', null, ['id'=>'c','class' => 'checkbox-inline']) !!}Puff effect
+                            {!! Form::checkbox('extraprints[]', 'umbralla', null, ['id'=>'d','class' => 'checkbox-inline']) !!}Umbrella
+                            {!! Form::checkbox('extraprints[]', 'pants', null, ['id'=>'e','class' => 'checkbox-inline']) !!}Pants
+                            {!! Form::checkbox('extraprints[]', 'flags', null, ['id'=>'f','class' => 'checkbox-inline']) !!}Flags
+
+
+
+
+                            {{--<label class="checkbox-inline">
+                                <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="inlineCheckbox2" value="option2"> 2
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="inlineCheckbox3" value="option3"> 3
+                            </label>--}}
                         </div>
                     </div>
                     @include('admin::bord.scripts.pad_and_screen_script')
