@@ -54,6 +54,15 @@ class User extends Model implements AuthenticatableContract,
         return array_intersect($permissions, $permissionArray);
     }
 
+    public static function getRole($user_id){
+        if(Auth::check()){
+            $user_role = RoleUser::with('relRole')->where('user_id', $user_id)->first();
+            $data = $user_role->relRole['slug'];
+            return $data;
+        }else{
+            return false;
+        }
+    }
 
 //Get All permission slugs from all permission of all roles
 

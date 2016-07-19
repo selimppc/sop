@@ -183,7 +183,9 @@ class AuthController extends Controller
                                 $user_act_model->create($user_activity);
 
                                 Session::put('email', $user_data->email);
-                                Session::put('user_id', $user_data->id);
+                                Session::put('user-role', User::getRole(Auth::user()->id));
+                                //Session::put('email', $user_data->email);
+                                //Session::put('user_id', $user_data->id);
                                 Session::flash('message', "Successfully  Logged In.");
 
                                 $this->menu_permission();

@@ -12,10 +12,11 @@
             <div class="panel-heading">
                 <span class="panel-title">{{ $pageTitle }}</span>
                     &nbsp;&nbsp;&nbsp;
-
+                @if(Session::get('user-role')=='super-admin' || Session::get('user-role')=='admin')
                 <a class="btn btn-primary btn-xs pull-right pop" data-toggle="modal" href="#addData" data-placement="top" data-content="click add new price button for new price entry">
                     <strong>Add New Price</strong>
                 </a>
+                @endif
 
             </div>
 
@@ -47,7 +48,9 @@
                             {{--<th> Unit </th>--}}
                             <th> Price </th>
                             {{--<th> Status</th>--}}
+                            @if(Session::get('user-role')=='super-admin' || Session::get('user-role')=='admin')
                             <th> Action &nbsp;&nbsp;<span style="color: #A54A7B" class="user-guideline" data-placement="top" data-content="view : click for details <br>update : click for update <br>delete : click for delete "></span></th>
+                            @endif
                         </tr>
                         </thead>
                         <tbody>
@@ -60,11 +63,14 @@
                                     {{--<td>{{ $values->unit }}</td>--}}
                                     <td>{{ $values->price }}</td>
                                     {{--<td>{{ucfirst($values->status)}}</td>--}}
+                                    @if(Session::get('user-role')=='super-admin' || Session::get('user-role')=='admin')
                                     <td>
                                         <a href="{{ route('view-price-list', $values->id) }}" class="btn btn-info btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="view"><i class="fa fa-eye"></i></a>
                                         <a href="{{ route('edit-price-list', $values->id) }}" class="btn btn-primary btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="update"><i class="fa fa-edit"></i></a>
                                         <a href="{{ route('delete-price-list', $values->id) }}" class="btn btn-danger btn-xs" data-placement="top" onclick="return confirm('Are you sure to Delete?')" data-content="delete"><i class="fa fa-trash-o"></i></a>
+
                                     </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         @endif
