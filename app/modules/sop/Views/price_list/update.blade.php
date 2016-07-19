@@ -10,7 +10,7 @@
 
 <div class="modal-body">
     @section('content_update')
-        {!! Form::model($data, ['method' => 'PATCH', 'route'=> ['update-price-list', $data->id],'id'=>'update-role']) !!}
+        {!! Form::model($data, ['method' => 'PATCH', 'route'=> ['update-price-list', $data->id],'id'=>'update-role','files'=>'true']) !!}
         {{--@include('sop::price_list._form')--}}
 
         <div class="form-group form-group no-margin-hr panel-padding-h no-padding-t no-border-t">

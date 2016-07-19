@@ -55,7 +55,7 @@
                             @foreach($data as $values)
                                 <tr class="gradeX">
                                     <td>{{ $values->code }}</td>
-                                    <td>{{ $values->image }}</td>
+                                    <td><img src="{{ $values->thumb_image }}" width="100"></td>
                                     <td>{{ $values->description }}</td>
                                     <td>{{ $values->unit }}</td>
                                     <td>{{ $values->price }}</td>
@@ -88,7 +88,7 @@
                 <h4 class="modal-title" id="myModalLabel">Add Price<span style="color: #A54A7B" class="user-guideline" data-content="<em>Must Fill <b>Required</b> Field.    <b>*</b> Put cursor on input field for more info </em>"> </span></h4>
             </div>
             <div class="modal-body">
-                {!! Form::open(['route' => 'store-price-list','class' => 'form-horizontal','id' => 'form_2']) !!}
+                {!! Form::open(['route' => 'store-price-list','class' => 'form-horizontal','id' => 'form_2','files'=>'true']) !!}
                     @include('sop::price_list._form')
                 {!! Form::close() !!}
             </div> <!-- / .modal-body -->

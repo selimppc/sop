@@ -3,11 +3,14 @@
 namespace App\Modules\Sop\Controllers;
 
 use App\PriceList;
+use App\Helpers\ImageResize;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Input;
 
 class PriceListController extends Controller
 {
@@ -35,20 +38,57 @@ class PriceListController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+        //print_r($input); exit();
 
-        /* Transaction Start Here */
-        DB::beginTransaction();
-        try {
-            PriceList::create($input);
-            DB::commit();
-            Session::flash('message', 'Successfully added!');
-        } catch (\Exception $e) {
-            //If there are any exceptions, rollback the transaction`
-            DB::rollback();
-            Session::flash('danger', $e->getMessage());
+        $image = Input::file('image');
+        //print_r($image); exit('');
+
+        if(count($image)>0){
+            $file_type_required = 'png,jpeg,jpg';
+            $destinationPath = 'uploads/pricelist_image/';
+
+            $uploadfolder = 'uploads/';
+
+            if ( !file_exists($uploadfolder) ) {
+                $oldmask = umask(0);  // helpful when used in linux server
+                mkdir ($uploadfolder, 0777);
+            }
+
+            if ( !file_exists($destinationPath) ) {
+                $oldmask = umask(0);  // helpful when used in linux server
+                mkdir ($destinationPath, 0777);
+            }
+
+            $file_name = PriceListController::image_upload($image,$file_type_required,$destinationPath);
+            //print_r($file_name);exit;
+            if($file_name != '') {
+//                unlink($model->image);
+//                unlink($model->thumbnail);
+                $input['image'] = $file_name[0];
+                $input['thumb_image'] = $file_name[1];
+            }
+            else{
+                Session::flash('error', 'Some thing error in image file type! Please Try again');
+                return redirect()->back();
+            }
+            DB::beginTransaction();
+            try {
+                /*$image_model->create($input);
+                DB::commit();
+                Session::flash('message', "Successfully added");
+                #LogFileHelper::log_info('store-user-profile', 'Successfully added', ['User profile image:'.$input['image']] );*/
+                PriceList::create($input);
+                DB::commit();
+                Session::flash('message', 'Successfully added!');
+
+            } catch (\Exception $e) {
+                //If there are any exceptions, rollback the transaction`
+                DB::rollback();
+                Session::flash('danger', $e->getMessage());
+            }
         }
-
         return redirect()->route('price-list');
+
     }
     /**
      * Display the specified resource.
@@ -90,22 +130,57 @@ class PriceListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request,$id)
     {
         $input = $request->all();
 
-        $model = PriceList::findOrFail($id);
-        DB::beginTransaction();
-        try {
-            $model->update($input);
-            DB::commit();
-            Session::flash('message', 'Successfully added!');
-        }catch (\Exception $e) {
-            //If there are any exceptions, rollback the transaction`
-            DB::rollback();
-            Session::flash('danger', $e->getMessage());
+        $image = Input::file('image');
+
+        if(count($image)>0){
+            $file_type_required = 'png,jpeg,jpg';
+            $destinationPath = 'uploads/pricelist_image/';
+
+            $uploadfolder = 'uploads/';
+
+            if ( !file_exists($uploadfolder) ) {
+                $oldmask = umask(0);  // helpful when used in linux server
+                mkdir ($uploadfolder, 0777);
+            }
+
+            if ( !file_exists($destinationPath) ) {
+                $oldmask = umask(0);  // helpful when used in linux server
+                mkdir ($destinationPath, 0777);
+            }
+
+            $file_name = PriceListController::image_upload($image,$file_type_required,$destinationPath);
+            //print_r($file_name);exit;
+            if($file_name != '') {
+//                unlink($model->image);
+//                unlink($model->thumbnail);
+                $input['image'] = $file_name[0];
+                $input['thumb_image'] = $file_name[1];
+            }
+            else{
+                Session::flash('error', 'Some thing error in image file type! Please Try again');
+                return redirect()->back();
+            }
+            $model = PriceList::findOrFail($id);
+            DB::beginTransaction();
+            try {
+                /*$image_model->create($input);
+                DB::commit();
+                Session::flash('message', "Successfully added");
+                #LogFileHelper::log_info('store-user-profile', 'Successfully added', ['User profile image:'.$input['image']] );*/
+                $model->update($input);
+                DB::commit();
+                Session::flash('message', 'Successfully added!');
+
+            } catch (\Exception $e) {
+                //If there are any exceptions, rollback the transaction`
+                DB::rollback();
+                Session::flash('danger', $e->getMessage());
+            }
         }
-        //}
         return redirect()->route('price-list');
     }
 
@@ -134,6 +209,52 @@ class PriceListController extends Controller
             Session::flash('danger',$e->getMessage());
         }
         return redirect()->route('price-list');
+    }
+
+    public function image_upload($image,$file_type_required,$destinationPath){
+
+        if ($image != '') {
+            $img_name = ($_FILES['image']['name']);
+            $random_number = rand(111, 999);
+
+            $thumb_name = 'thumb_50x50_'.$random_number.'_'.$img_name;
+
+            $newWidth=200;
+            $targetFile=$destinationPath.$thumb_name;
+            $originalFile=$image;
+
+            $resizedImages 	= ImageResize::resize($newWidth, $targetFile,$originalFile);
+
+            $thumb_image_destination=$destinationPath;
+            $thumb_image_name=$thumb_name;
+
+            //$rules = array('image' => 'required|mimes:png,jpeg,jpg');
+            $rules = array('image' => 'required|mimes:'.$file_type_required);
+            $validator = Validator::make(array('image' => $image), $rules);
+            if ($validator->passes()) {
+                // Files destination
+                //$destinationPath = 'uploads/slider_image/';
+                // Create folders if they don't exist
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0777, true);
+                }
+                $image_original_name = $image->getClientOriginalName();
+                $image_name = rand(11111, 99999) . $image_original_name;
+                $upload_success = $image->move($destinationPath, $image_name);
+
+                $file=array($destinationPath . $image_name, $thumb_image_destination.$thumb_image_name);
+
+                if ($upload_success) {
+                    return $file_name = $file;
+                }
+                else{
+                    return $file_name = '';
+                }
+            }
+            else{
+                return $file_name = '';
+            }
+        }
     }
 
 }
