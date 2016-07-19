@@ -184,6 +184,31 @@ class PriceListController extends Controller
         return redirect()->route('price-list');
     }
 
+    public function search(){
+
+        $pageTitle = "Search Result : List of Price(s)";
+        $model = new PriceList();
+
+        if(!empty(Input::get('code'))){
+            $code = Input::get('code');
+
+            $model = $model->select('price_list.*');
+
+            if(isset($code) && !empty($code)){
+                $model = $model->where('price_list.code', 'LIKE', '%'.$code.'%');
+            }
+            $data = $model->paginate(30);
+
+        }else{
+            $data = PriceList::where('status','!=','inactive')->paginate(30);
+        }
+
+        return view('sop::price_list.index',[
+            'data'=>$data,
+            'pageTitle'=>$pageTitle
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *

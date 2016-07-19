@@ -21,7 +21,7 @@
 
             <div class="panel-body">
                 {{-------------- Filter :Starts ---------------}}
-                {!! Form::open(['route' => 'price-list']) !!}
+                {!! Form::open(['route' => 'search-price-list']) !!}
 
                 <div id="index-search">
                     <div class="col-sm-3">
@@ -44,9 +44,9 @@
                             <th> Code </th>
                             <th> Image </th>
                             <th> Description </th>
-                            <th> Unit </th>
+                            {{--<th> Unit </th>--}}
                             <th> Price </th>
-                            <th> Status</th>
+                            {{--<th> Status</th>--}}
                             <th> Action &nbsp;&nbsp;<span style="color: #A54A7B" class="user-guideline" data-placement="top" data-content="view : click for details <br>update : click for update <br>delete : click for delete "></span></th>
                         </tr>
                         </thead>
@@ -57,9 +57,9 @@
                                     <td>{{ $values->code }}</td>
                                     <td><img src="{{ $values->thumb_image }}" width="100"></td>
                                     <td>{{ $values->description }}</td>
-                                    <td>{{ $values->unit }}</td>
+                                    {{--<td>{{ $values->unit }}</td>--}}
                                     <td>{{ $values->price }}</td>
-                                    <td>{{ucfirst($values->status)}}</td>
+                                    {{--<td>{{ucfirst($values->status)}}</td>--}}
                                     <td>
                                         <a href="{{ route('view-price-list', $values->id) }}" class="btn btn-info btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="view"><i class="fa fa-eye"></i></a>
                                         <a href="{{ route('edit-price-list', $values->id) }}" class="btn btn-primary btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="update"><i class="fa fa-edit"></i></a>

@@ -12,7 +12,7 @@
             </tr>
             <tr>
                 <th class="col-lg-4">Image</th>
-                <td><img src="{{ isset($data->image)? $data->image : ''}}"></td>
+                <td><img src="{{ isset($data->image)? $data->image : ''}}" width="300"></td>
             </tr>
             <tr>
                 <th class="col-lg-4">Description</th>

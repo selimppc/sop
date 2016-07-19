@@ -46,6 +46,11 @@
 
             <div class="row">
                 <div class="col-sm-12">
+                    <?php if(isset($data->thumb_image)){ ?>
+                        <br>
+                            <img src="{{ isset($data->thumb_image)? $data->thumb_image : ''}}">
+                        <br>
+                    <?php } ?>
                     {!! Form::label('image', 'Image:', ['class' => 'control-label']) !!}
                     {!! Form::file('image', ['class' => 'form-control','placeholder'=>'upload image','required', 'title'=>'Image']) !!}
                 </div>

@@ -50,37 +50,43 @@ Route::group(array('middleware' => 'auth','modules'=>'Sop', 'namespace' => 'App\
 
 
     Route::any('price-list', [
-        #'middleware' => 'acl_access:role',
+        'middleware' => 'acl_access:price-list',
         'as' => 'price-list',
         'uses' => 'PriceListController@index'
     ]);
 
     Route::any('store-price-list', [
-        #'middleware' => 'acl_access:store-role',
+        'middleware' => 'acl_access:store-price-list',
         'as' => 'store-price-list',
         'uses' => 'PriceListController@store'
     ]);
 
     Route::any('view-price-list/{id}', [
-        #'middleware' => 'acl_access:view-role/{slug}',
+        'middleware' => 'acl_access:view-price-list/{id}',
         'as' => 'view-price-list',
         'uses' => 'PriceListController@show'
     ]);
 
     Route::any('edit-price-list/{id}', [
-        #'middleware' => 'acl_access:edit-role/{slug}',
+        'middleware' => 'acl_access:edit-price-list/{id}',
         'as' => 'edit-price-list',
         'uses' => 'PriceListController@edit'
     ]);
 
     Route::any('update-price-list/{id}', [
-        #'middleware' => 'acl_access:update-role/{slug}',
+        'middleware' => 'acl_access:update-price-list/{id}',
         'as' => 'update-price-list',
         'uses' => 'PriceListController@update'
     ]);
 
+    Route::any('search-price-list', [
+        'middleware' => 'acl_access:search-price-list',
+        'as' => 'search-price-list',
+        'uses' => 'PriceListController@search'
+    ]);
+
     Route::any('delete-price-list/{id}', [
-        #'middleware' => 'acl_access:delete-role/{slug}',
+        'middleware' => 'acl_access:delete-price-list/{id}',
         'as' => 'delete-price-list',
         'uses' => 'PriceListController@destroy'
     ]);
