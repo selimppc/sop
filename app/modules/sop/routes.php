@@ -43,4 +43,51 @@ Route::group(array('middleware' => 'auth','modules'=>'Sop', 'namespace' => 'App\
         'uses'=>'PrintCutController@view_formulier_stempels'
     ]);
 
+    /*
+     *
+     * Price List
+     */
+
+
+    Route::any('price-list', [
+        #'middleware' => 'acl_access:role',
+        'as' => 'price-list',
+        'uses' => 'PriceListController@index'
+    ]);
+
+    Route::any('store-price-list', [
+        #'middleware' => 'acl_access:store-role',
+        'as' => 'store-price-list',
+        'uses' => 'PriceListController@store'
+    ]);
+
+    Route::any('view-price-list/{id}', [
+        #'middleware' => 'acl_access:view-role/{slug}',
+        'as' => 'view-price-list',
+        'uses' => 'PriceListController@show'
+    ]);
+
+    Route::any('edit-price-list/{id}', [
+        #'middleware' => 'acl_access:edit-role/{slug}',
+        'as' => 'edit-price-list',
+        'uses' => 'PriceListController@edit'
+    ]);
+
+    Route::any('update-price-list/{id}', [
+        #'middleware' => 'acl_access:update-role/{slug}',
+        'as' => 'update-price-list',
+        'uses' => 'PriceListController@update'
+    ]);
+
+    Route::any('delete-price-list/{id}', [
+        #'middleware' => 'acl_access:delete-role/{slug}',
+        'as' => 'delete-price-list',
+        'uses' => 'PriceListController@destroy'
+    ]);
+
+
+
+
+
+
 });
