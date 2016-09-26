@@ -64,5 +64,15 @@
             @endif
         @endif
 
+        {{--<li>
+            <a href="#"><i class="fa fa-clipboard"></i> <span class="nav-label">Leave</span><span class="fa arrow"></span> </a>
+            <ul class="nav nav-second-level collapse">
+                <li>
+                    <a href="{{route('leave-application')}}"> Leave</a>
+                </li>
+
+            </ul>
+        </li>--}}
+
     </ul>
 </div>

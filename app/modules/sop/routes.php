@@ -91,6 +91,51 @@ Route::group(array('middleware' => 'auth','modules'=>'Sop', 'namespace' => 'App\
         'uses' => 'PriceListController@destroy'
     ]);
 
+    /*
+     *
+     * Leave Applications
+     */
+
+
+    Route::any('leave-application', [
+        'middleware' => 'acl_access:leave-application',
+        'as' => 'leave-application',
+        'uses' => 'LeaveController@index'
+    ]);
+
+    Route::any('store-leave-application', [
+        'middleware' => 'acl_access:store-leave-application',
+        'as' => 'store-leave-application',
+        'uses' => 'LeaveController@store'
+    ]);
+
+    Route::any('leave-approve/{id}', [
+        'middleware' => 'acl_access:leave-approve/{id}',
+        'as' => 'leave-approve',
+        'uses' => 'LeaveController@leave_approve'
+    ]);
+
+    Route::any('leave-decline/{id}', [
+        'middleware' => 'acl_access:leave-decline/{id}',
+        'as' => 'leave-decline',
+        'uses' => 'LeaveController@leave_decline'
+    ]);
+
+    Route::any('leave-accept/{id}', [
+        'middleware' => 'acl_access:leave-accept/{id}',
+        'as' => 'leave-accept',
+        'uses' => 'LeaveController@leave_accept'
+    ]);
+
+    Route::any('search-worker', [
+        'middleware' => 'acl_access:search-worker',
+        'as' => 'search-worker',
+        'uses' => 'LeaveController@search'
+    ]);
+
+
+
+
 
 
 
