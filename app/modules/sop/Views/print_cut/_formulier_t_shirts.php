@@ -1,4 +1,8 @@
 <script>
+
+var koers_usd = $("#usd").val();
+var koers_euro = $("#euro").val();
+
     function BerekenTotaal() {
         // Korting Checken, en indien hoger dan 100 advies geven
         var korting = 0;
@@ -31,15 +35,20 @@
         var totaal = 0;
 
         for(var i=0; i<values.length; i++) {
-            values[i] = parseInt(values[i], 10);
+            // values[i] = values[i];
             totaal += values[i];
         }
 
         var totaal_shirts = totaal * aantal;
 
+        console.log(values);
+
         var uiteindelijke_prijs = totaal_shirts - ((totaal_shirts/100) * korting);
 
+        // console.log(uiteindelijke_prijs);
+
         return uiteindelijke_prijs;
+
         // Totale prijs van T-shirt bestelling berekenen
     }
 
@@ -74,7 +83,7 @@
 					        </div>\
 					        <div class="form-group">\
 						        <label for="prijs" class="col-xs-2 control-label">Prijs</label>\
-						        <label for="prijs" class="col-xs-1 control-label">SR$</label>\
+						        <label for="prijs" class="col-xs-1 control-label">SRD</label>\
 						        <div class="col-xs-9">\
 						            <input type="number" readonly class="prijs" name="prijs" id="prijs" placeholder="0 ,-">\
 						        </div>\
@@ -87,12 +96,9 @@
     $(document).on('click','#remove',function() {
         $(this).parent('div').remove();
         $('#totale_prijs').val(BerekenTotaal());
+        $('#totale_prijs_usd').val(Math.round((BerekenTotaal() / koers_usd) * 100) / 100);
+        $('#totale_prijs_euro').val(Math.round((BerekenTotaal() / koers_euro) * 100) / 100);
     });
-
-
-
-
-
 
     $(document).ready(function() {
         $('.error').stop().hide();
@@ -101,6 +107,8 @@
         $('.container, .form-control').on('change keyup', function() {
 
             $('#totale_prijs').val(BerekenTotaal());
+            $('#totale_prijs_usd').val(Math.round((BerekenTotaal() / koers_usd) * 100) / 100);
+            $('#totale_prijs_euro').val(Math.round((BerekenTotaal() / koers_euro) * 100) / 100);
 
             // Checken als select optie verandert is
             $(document).on('change', '#locatie', function() {
@@ -117,6 +125,8 @@
                 var lengte = $(top).find('#lengte');
                 var breedte = $(top).find('#breedte');
                 var prijs = $(top).find('#prijs');
+                var prijs_usd = $(top).find('#prijs_usd');
+                var prijs_euro = $(top).find('#prijs_euro');
 
                 // disable lengte en breedte bij A-formaten
                 if(value == 'a4' || value == 'a5') {
@@ -134,7 +144,9 @@
                 if (value == 'mouwen') {
                     lengte.val(6);
                     breedte.val(3);
-                    prijs.val(5);
+                    prijs.val(11.5);
+                    prijs_usd.val(Math.round((11.5 / koers_usd) * 100) / 100);
+                    prijs_euro.val(Math.round((11.5 / koers_euro) * 100) / 100);
                     lengte.on('change keyup', function(){
                         if(lengte.val() > 6){
                             $('.error').text('lengte maximaal 6 cm - mouwen');
@@ -158,7 +170,9 @@
                 if (value == 'borst') {
                     lengte.val(11);
                     breedte.val(3);
-                    prijs.val(10);
+                    prijs.val(17.5);
+                    prijs_usd.val(Math.round((17.5 / koers_usd) * 100) / 100);
+                    prijs_euro.val(Math.round((17.5 / koers_euro) * 100) / 100);
                     lengte.on('change keyup', function(){
                         if(lengte.val() >= 11){
                             $('.error').text('lengte breedte verhouding borst 11x3 - borst');
@@ -166,6 +180,8 @@
                             lengte.val(11);
                             breedte.val(3);
                             prijs.val(10);
+                            prijs_usd.val(Math.round((10 / koers_usd) * 100) / 100);
+                            prijs_euro.val(Math.round((10 / koers_euro) * 100) / 100);
                         }
                     })
 
@@ -174,7 +190,9 @@
                             $('.error').text('lengte breedte verhouding 10x10 - borst');
                             $('.error').stop().hide().fadeIn(400).delay(2000).fadeOut(400); //fade out after 3 seconds
                             lengte.val(10);
-                            prijs.val(15);
+                            prijs.val(33.5);
+                            prijs_usd.val(Math.round((33.5 / koers_usd) * 100) / 100);
+                            prijs_euro.val(Math.round((33.5 / koers_euro) * 100) / 100);
                         }
                         if(breedte.val() > 10){
                             breedte.val(10);
@@ -190,25 +208,34 @@
                 if (value == 'achter') {
                     lengte.val(20);
                     breedte.val(4);
-                    prijs.val(20);
+                    prijs.val(47);
+                    prijs_usd.val(Math.round((47 / koers_usd) * 100) / 100);
                     lengte.on('change keyup', function(){
                         if(lengte.val() <= 20 && breedte.val() <= 4){
-                            prijs.val(20);
+                            prijs.val(47);
+                            prijs_usd.val(Math.round((47 / koers_usd) * 100) / 100);
+                            prijs_euro.val(Math.round((47 / koers_euro) * 100) / 100);
                         }
                         if(lengte.val() > 20){
-                            prijs.val(25);
+                            prijs.val(58.5);
+                            prijs_usd.val(Math.round((58.5 / koers_usd) * 100) / 100);
+                            prijs_euro.val(Math.round((58.5 / koers_euro) * 100) / 100);
                         }
                         if(lengte.val() > 30){
                             $('.error').text('max lengte 30cm - achter');
                             $('.error').stop().hide().fadeIn(400).delay(2000).fadeOut(400); //fade out after 3 seconds
                             lengte.val(30);
-                            prijs.val(25);
+                            prijs.val(58.5);
+                            prijs_usd.val(Math.round((58.5 / koers_usd) * 100) / 100);
+                            prijs_euro.val(Math.round((58.5 / koers_euro) * 100) / 100);
                         }
                     })
 
                     breedte.on('change keyup', function(){
                         if(breedte.val() <= 4 && lengte.val() <= 20){
-                            prijs.val(20);
+                            prijs.val(47);
+                            prijs_usd.val(Math.round((47 / koers_usd) * 100) / 100);
+                            prijs_euro.val(Math.round((47 / koers_euro) * 100) / 100);
                         }
                         if(breedte.val() > 6){
                             breedte.val(6);
@@ -222,13 +249,17 @@
 
                 // a4 prijs validation
                 if (value == 'a4') {
-                    prijs.val(50);
+                    prijs.val(86.5);
+                    prijs_usd.val(Math.round((86.5 / koers_usd) * 100) / 100);
+                    prijs_euro.val(Math.round((86.5 / koers_euro) * 100) / 100);
                 };
                 // a4 prijs  validation
 
                 // a5 prijs validation
                 if (value == 'a5') {
-                    prijs.val(30);
+                    prijs.val(68.5);
+                    prijs_usd.val(Math.round((68.5 / koers_usd) * 100) / 100);
+                    prijs_euro.val(Math.round((68.5 / koers_euro) * 100) / 100);
                 };
                 // a5 prijs  validation
 
@@ -236,7 +267,9 @@
                 if (value == 'petten') {
                     lengte.val(10);
                     breedte.val(10);
-                    prijs.val(15);
+                    prijs.val(33.5);
+                    prijs_usd.val(Math.round((33.5 / koers_usd) * 100) / 100);
+                    prijs_euro.val(Math.round((33.5 / koers_euro) * 100) / 100);
                     lengte.on('change keyup', function(){
                         if(lengte.val() > 10){
                             $('.error').text('max lengte 10cm - petten');
@@ -256,10 +289,9 @@
                 // petten  validation
 
                 $('#totale_prijs').val(BerekenTotaal());
-
+                $('#totale_prijs_usd').val(Math.round((BerekenTotaal() / koers_usd) * 100) / 100);
+                $('#totale_prijs_euro').val(Math.round((BerekenTotaal() / koers_euro) * 100) / 100);
             });
-
-
         });
     });
 

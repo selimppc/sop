@@ -7,7 +7,7 @@
     <div class="panel-body">
         <form class="form-horizontal">
             <fieldset>
-                <legend>Formulier Groot Formaat</legend>
+                <legend>Groot Formaat Stickers</legend>
                 <div id="extra-formaat">
                     <div class="formaat">
                         <div class="form-group">
@@ -48,10 +48,32 @@
                             </div>
                         </div>
 
+                        <div class="form-group m-b" id="lengte-groep">
+                            <label for="lengte" class="col-sm-2 control-label">Lengte</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" id="lengte" placeholder="Lengte">
+                            </div>
+
+                            <div class="col-sm-2">
+                                <select id="eenheid" class="form-control">
+                                    <option value="cm">Centimeter</option>
+                                    <option value="m">Meter</option>
+                                    <option value="inch">Inch</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group m-b" id="breedte-groep">
+                            <label for="breedte" class="col-sm-2 control-label">Breedte</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="breedte" placeholder="Breedte">
+                            </div>
+                        </div>
+
                         <div class="form-group">
-                            <label for="oppervlakte" class="col-xs-2 control-label">Oppervlakte/m2</label>
+                            <label for="oppervlakte" class="col-xs-2 control-label">Oppervlakte (m2)</label>
                             <div class="col-xs-10">
-                                <input type="number" step="0.1" class="form-control" id="oppervlakte" placeholder="Oppervlakte/m2" value="">
+                                <input type="number" step="0.1" class="form-control" id="oppervlakte" placeholder="Oppervlakte" value="" disabled="">
                                 <!--  <input id="slider" type="range" min="0.2" max="5" step="0.2" /> -->
                             </div>
                         </div>
@@ -67,11 +89,28 @@
 
                 <div class="form-group m-t-80">
                     <label for="prijs" class="col-xs-2 control-label">Prijs</label>
-                    <div class="col-sm-10 input-group">
-                        <span class="input-group-addon">SR$</span>
-                        <input type="text" readonly="" class="prijs" id="prijs" placeholder="0,-" value="">
+                    <div class="col-xs-10">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>SRD</th>
+                                    <th>USD</th>
+                                    <th>EURO</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" readonly="" class="prijs form-control" id="" placeholder="0,-" value=""></td>
+                                    <td><input type="text" readonly="" class="prijs_usd form-control" id="" placeholder="0,-" value=""></td>
+                                    <td><input type="text" readonly="" class="prijs_euro form-control" id="" placeholder="0,-" value=""></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+
+                <input type="hidden" id="usd" value="<?= $usd; ?>">
+                <input type="hidden" id="euro" value="<?= $euro; ?>">
 
                 {{--<div class="form-group m-t-80">--}}
                     {{--<div class="col-xs-1 col-xs-offset-2">--}}

@@ -208,6 +208,9 @@ $('img.block').hide();
 $('img.front').hide();
 $('img.front_back').hide();
 $('img.back').hide();
+$('img.small').hide();
+$('img.medium').hide();
+$('img.large').hide();
 
 $('div.radio').on('change', function() {
 	if($('input[name="model"]:checked', 'div.radio').val() == 'block'){
@@ -233,6 +236,24 @@ $('div.radio').on('change', function() {
 	}else{
 		
 	}
+});
+
+$('div.bracket').on('change', function() {
+    if($('input[name="bracket"]:checked', 'div.bracket').val() == 'small'){
+        $('img.small').show();
+        $('img.medium').hide();
+        $('img.large').hide();
+    }else if($('input[name="bracket"]:checked', 'div.bracket').val() == 'medium'){
+        $('img.small').hide();
+        $('img.medium').show();
+        $('img.large').hide();
+    }else if($('input[name="bracket"]:checked', 'div.bracket').val() == 'large'){
+        $('img.small').hide();
+        $('img.medium').hide();
+        $('img.large').show();
+    }else{
+        
+    }
 });
 
 

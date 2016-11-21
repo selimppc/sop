@@ -23,9 +23,17 @@ class PriceListController extends Controller
     {
         $pageTitle = "List of Price(s)";
         $data = PriceList::where('status','!=','inactive')->paginate(30);
+
+        $currency = DB::table('currency')->get();
+
+        $usd = round($currency[0]->value, 2);
+        $euro = round($currency[1]->value, 2);
+
         return view('sop::price_list.index',[
             'data'=>$data,
-            'pageTitle'=>$pageTitle
+            'pageTitle'=>$pageTitle,
+            'usd'=>$usd,
+            'euro'=>$euro
         ]);
     }
 

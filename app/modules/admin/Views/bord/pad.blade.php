@@ -80,13 +80,13 @@
                         <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="jq-datatables-example">
                             <tr>
                                 <th></th>
-                                <td>SRD &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                                <td>US$ &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
                                     {{isset($data['final_amount']['srd']['price'])?number_format($data['final_amount']['srd']['price'], 2, '.', ''):''}}
                                 </td>
-                                <td>$ &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                                <td>&euro; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
                                     {{isset($data['final_amount']['usd']['price'])?number_format($data['final_amount']['usd']['price'], 2, '.', ''):''}}
                                 </td>
-                                <td>&euro; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <td>SRD; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     {{isset($data['final_amount']['euro']['price'])?number_format($data['final_amount']['euro']['price'], 2, '.', ''):''}}
                                 </td>
                             </tr>

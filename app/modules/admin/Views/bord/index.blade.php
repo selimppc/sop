@@ -90,6 +90,20 @@
             </div>
         </div>
     </div>
+    
+    {{--printcut--}}
+    <div class="col-lg-4">
+        <div class="hpanel">
+            <div class="panel-body text-center">
+                <br>
+                <a class="" data-toggle="modal" href="{{route('print-cut')}}" data-placement="top" data-content="printcut entry form" style="margin-left:1%"><i class="pad fa fa-file-text"></i>
+                    <br>
+                    <span style="font-size:medium">Print Cut</span>
+                </a>
+                <br>
+            </div>
+        </div>
+    </div>
 
 
 </div>

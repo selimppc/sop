@@ -21,6 +21,7 @@ class CreateLeaveTable extends Migration
             $table->dateTime('from_date',64)->nullable();
             $table->dateTime('to_date',64)->nullable();
             $table->text('reason')->nullable();
+            $table->text('type')->nullable();
             $table->enum('status',array('open','decline','approved','accepted'))->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);

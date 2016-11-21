@@ -17,7 +17,7 @@ class LeaveDetail extends Model
     protected $table = 'leave_detail';
 
     protected $fillable = [
-        'leave_head_id','user_id','date','note','status'
+        'leave_head_id','user_id','date','note','status', 'balance'
     ];
 
 

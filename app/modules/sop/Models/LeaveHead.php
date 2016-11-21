@@ -17,7 +17,7 @@ class LeaveHead extends Model
     protected $table = 'leave_head';
 
     protected $fillable = [
-        'user_id','user_name','user_email','date','from_date','to_date','reason','status'
+        'user_id','type','user_name','user_email','date','from_date','to_date','reason','status', 'balance'
     ];
 
     public function relUser(){
@@ -27,7 +27,6 @@ class LeaveHead extends Model
     public function relLeaveDetail(){
         return $this->hasMany('App\LeaveDetail');
     }
-
 
     public static function boot(){
         parent::boot();
@@ -42,5 +41,4 @@ class LeaveHead extends Model
             }
         });
     }
-
 }

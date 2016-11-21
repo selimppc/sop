@@ -39,20 +39,91 @@ class LeaveController extends Controller
         $user_id = Auth::user()->id;
         $role_id = session('user-role');
         $status = '';
-        //$user = User::where('id',$user_id)->lists('username','id')->all();
+        // $user = User::where('id',$user_id)->lists('username','id')->all();
 
         #print_r($user);exit;
 
         if($role_id == 'worker'){
-            $data = LeaveHead::with('relUser')->where('user_id',$user_id)->orderBy('id','DESC')->paginate(30);
-        }if($role_id == 'manager'){
-        $data = LeaveHead::with('relUser')->where('status','approved')->orWhere('status','accepted')->orderBy('id','DESC')->paginate(30);
+            // $data = LeaveHead::with('relUser')->where('user_id',$user_id)->orderBy('id','DESC')->paginate(30);
+
+            $data = DB::table('user')
+            ->join('leave_head', 'leave_head.user_id', '=', 'user.id')
+            ->select('user.balance', 'leave_head.*')
+            ->where('user_id', $user_id)
+            ->orderBy('id','DESC')
+            ->get();
+
         }else{
-            $data = LeaveHead::with('relUser')->orderBy('id','DESC')->paginate(30);
+            // $data = LeaveHead::with('relUser')->orderBy('id','DESC')->paginate(30);
+
+            $data = DB::table('user')
+            ->join('leave_head', 'leave_head.user_id', '=', 'user.id')
+            ->select('user.balance', 'leave_head.*')
+            ->orderBy('id','DESC')
+            ->get();
         }
+
+        // get saldo of the logged user
+        $balance = DB::table('user')
+            ->select('balance')
+            ->where('id', $user_id)
+            ->get();
+
+        // 1. bereken het verschil tussen de employed_date en deze maand
+        $employed = DB::table('user')
+            ->select('employed')
+            ->where('id', $user_id)
+            ->first();
+        $date_employed = '';
+        foreach ($employed as $value) {
+            $date_employed = $employed->employed;
+        }
+        $interval = date_create(date($date_employed))->diff(date_create(date('Y-m-d')));
+        
+        // berekenen van het verschil
+        $verschil = ($interval->y * 12) + $interval->m;
+        
+        // aantal verlofdagen genomen
+        $count_leaves = DB::table('leave_head')
+            ->select('from_date', 'to_date', 'type')
+            ->where('user_id', $user_id)
+            ->where('status', 'accepted')
+            ->get();
+
+        // bereken hoeveel verlofdagen de gebruiker heeft genomen
+        $total_verlofdagen = "";
+        $halve_dagen_berekenen = "";
+        $normale_dagen_berekenen = "";
+        foreach ($count_leaves as $value) {
+            // echo "From Date: " . $value->from_date . '<br>';
+            // echo "To Date: " . $value->to_date . '<br>';
+            // TODO: Halve dag berekenen
+            if ($value->type == 'halve dag') {
+                $halve_dagen = (date_create($value->from_date)->diff(date_create($value->to_date))->d) + 1;
+                $halve_dagen_berekenen = $halve_dagen * 0.5;
+                $normale_dagen_berekenen = '';
+                // print_r($halve_dagen_berekenen);
+            }
+
+            if ($value->type != 'halve dag') {
+                $normale_dagen = date_create($value->from_date)->diff(date_create($value->to_date))->d;
+                $normale_dagen_berekenen = $normale_dagen + 1;
+                // print_r($normale_dagen_berekenen);
+            }
+            // print_r('Totale verlofdagen: ' . $total_verlofdagen . ' Normale verlofdagen: ' .$normale_dagen_berekenen . ' Halve verlofdagen: ' .  $halve_dagen_berekenen . '<br>');
+            $total_verlofdagen = $total_verlofdagen + $normale_dagen_berekenen + $halve_dagen_berekenen;
+        }
+
+        $saldo = $verschil - $total_verlofdagen;
+
+        // 2. update balance van de gebruiker
+        $update_balance = DB::table('user')
+            ->where('id', $user_id)
+            ->update(['balance' => $saldo]);
 
         return view('sop::leave.index',[
             'data'=>$data,
+            'balance'=>$balance,
             'role_id'=>$role_id,
             'status'=>$status,
             'pageTitle'=>$pageTitle
@@ -115,6 +186,7 @@ class LeaveController extends Controller
 
         $leave_head_data = [
             'user_id'=>$user_id,
+            'type'=>$input['type'],
             'user_name'=>$user_name,
             'user_email'=>$user_email,
             'date'=>date('Y-m-d H:i:s'),
@@ -124,11 +196,11 @@ class LeaveController extends Controller
             'status'=> 'open',
         ];
 
-        #print_r($leave_head_data); exit();
+        // print_r($leave_head_data); exit();
 
         DB::beginTransaction();
         try {
-            #LogFileHelper::log_info('store-user-profile', 'Successfully added', ['User profile image:'.$input['image']] );*/
+            // LogFileHelper::log_info('store-user-profile', 'Successfully added', ['User profile image:'.$input['image']] );
             $vh =LeaveHead::create($leave_head_data);
 
             $data['leave'] = LeaveHead::where('id',$vh['id'])->first();
@@ -137,34 +209,34 @@ class LeaveController extends Controller
             if($role_id == 'worker'){
 
                 $supervisor= User::where('role_id',4)->get();
-
+                
                 foreach ($supervisor as $user) {
                     Mail::send('sop::leave._notify_email', $data, function ($m) use ($user) {
+                        
+                        // get worker name
+                        $worker_id = Auth::user()->id;
+                        $worker = User::where('id',$worker_id)->first();
+                        $worker_name = $worker->username;
+
                         $m->from('worker@gmail.com', 'SOP');
                         //$m->to($user->email,$user->username)->subject('Leave Application');
-                        $m->to($user->email,$user->username)->subject('Leave Application');
+                        $m->to($user->email,$user->username)->subject('Verlof aanvraag: ' . $worker_name);
                     });
                 }
             }elseif($role_id == 'supervisor'){
-                $hr = User::where('role_id',5)->get();
-
-                foreach ($hr as $user) {
-                    Mail::send('sop::leave._notify_email', $data, function ($m) use ($user) {
-                        $m->from('supervisor@gmail.com', 'SOP');
-                        //$m->to($user->email,$user->username)->subject('Leave Application');
-                        $m->to($user->email,$user->username)->subject('Leave Application');
-                    });
-                }
-
-            }else{
-
                 $manager = User::where('role_id',6)->get();
 
                 foreach ($manager as $user) {
                     Mail::send('sop::leave._notify_email', $data, function ($m) use ($user) {
+
+                        // get worker name
+                        $worker_id = Auth::user()->id;
+                        $worker = User::where('id',$worker_id)->first();
+                        $worker_name = $worker->username;
+
                         $m->from('hr@gmail.com', 'SOP');
                         //$m->to($user->email,$user->username)->subject('Leave Application');
-                        $m->to($user->email,$user->username)->subject('Leave Application');
+                        $m->to($user->email,$user->username)->subject('Verlof aanvraag: ' . $worker_name);
                     });
                 }
             }
@@ -183,11 +255,19 @@ class LeaveController extends Controller
 
     }
 
+    public function leave_cancel($id)
+    {
+        // print_r($id);
+        DB::table('leave_head')
+            ->where('id', $id)
+            ->update(['status' => 'canceled']);
+        return redirect()->route('leave-application');
+    }
+
     public function leave_approve($id)
     {
         $user_id = Auth::user()->id;
         $role_id = session('user-role');
-
 
         $model = LeaveHead::findOrFail($id);
         DB::beginTransaction();
@@ -211,23 +291,21 @@ class LeaveController extends Controller
 
                 if($role_id == 'supervisor'){
 
-                    $hr = User::where('role_id',5)->get();
+                    $manager = User::where('role_id',6)->get();
 
-                    foreach ($hr as $user) {
-                        Mail::send('sop::leave._notify_email', $data, function ($m) use ($user) {
-                            $m->from('supervisor@gmail.com', 'SOP');
-                            //$m->to($user->email,$user->username)->subject('Leave Application');
-                            $m->to($user->email,$user->username)->subject('Leave Application');
-                        });
-                    }
-                }elseif($role_id == 'hr'){
-                    $hr = User::where('role_id',6)->get();
+                    foreach ($manager as $user) {
 
-                    foreach ($hr as $user) {
-                        Mail::send('sop::leave._notify_email', $data, function ($m) use ($user) {
+                        $a = $id;
+                        Mail::send('sop::leave._notify_email', $data, function ($m) use ($user, $a) {
+
+                            // get worker name
+                            $model = LeaveHead::findOrFail($a);
+                            $worker = User::where('id',$model->user_id)->first();
+                            $worker_name = $worker->username;
+
                             $m->from('hr@gmail.com', 'SOP');
                             //$m->to($user->email,$user->username)->subject('Leave Application');
-                            $m->to($user->email,$user->username)->subject('Leave Application');
+                            $m->to($user->email,$user->username)->subject('Verlof aanvraag ' . $worker_name . ' goedgekeurd');
                         });
                     }
                 }
@@ -274,7 +352,7 @@ class LeaveController extends Controller
                 Mail::send('sop::leave._notify_email', $data, function ($m) use ($user) {
                     $m->from('supervisor@gmail.com', 'SOP');
                     //$m->to($user->email,$user->username)->subject('Leave Application');
-                    $m->to($user->relUser->email,$user->relUser->username)->subject('Leave Application Declined');
+                    $m->to($user->relUser->email,$user->relUser->username)->subject('Verlof afgekeurd');
                 });
             }
 
@@ -317,10 +395,62 @@ class LeaveController extends Controller
             $users = LeaveHead::with('relUser')->where('id',$id)->get();
 
             foreach ($users as $user) {
-                Mail::send('sop::leave._notify_email', $data, function ($m) use ($user) {
+                $a = $id;
+                Mail::send('sop::leave._notify_email', $data, function ($m) use ($user, $a) {
+
+                    // get worker name
+                    $model = LeaveHead::findOrFail($a);
+                    $worker = User::where('id',$model->user_id)->first();
+                    $worker_name = $worker->username;
                     $m->from('supervisor@gmail.com', 'SOP');
                     //$m->to($user->email,$user->username)->subject('Leave Application');
-                    $m->to($user->relUser->email,$user->relUser->username)->subject('Leave Application Accepted');
+                    $m->to($user->relUser->email,$user->relUser->username)->subject('Verlof aanvraag ' . $worker_name . ' geaccepteerd');
+                });
+            }
+
+            $supervisor= User::where('role_id',4)->get();
+
+            foreach ($supervisor as $user) {
+                $a = $id;
+                Mail::send('sop::leave._notify_email', $data, function ($m) use ($user, $a) {
+
+                    // get worker name
+                    $model = LeaveHead::findOrFail($a);
+                    $worker = User::where('id',$model->user_id)->first();
+                    $worker_name = $worker->username;
+                    $m->from('worker@gmail.com', 'SOP');
+                    //$m->to($user->email,$user->username)->subject('Leave Application');
+                    $m->to($user->email,$user->username)->subject('Verlof aanvraag ' . $worker_name . ' geaccepteerd');
+                });
+            }
+            $manager = User::where('role_id',6)->get();
+
+            foreach ($manager as $user) {
+                $a = $id;
+                Mail::send('sop::leave._notify_email', $data, function ($m) use ($user, $a) {
+
+                    // get worker name
+                    $model = LeaveHead::findOrFail($a);
+                    $worker = User::where('id',$model->user_id)->first();
+                    $worker_name = $worker->username;
+                    $m->from('hr@gmail.com', 'SOP');
+                    //$m->to($user->email,$user->username)->subject('Leave Application');
+                    $m->to($user->email,$user->username)->subject('Verlof aanvraag ' . $worker_name . ' geaccepteerd');
+                });
+            }
+            $hr = User::where('role_id',5)->get();
+
+            foreach ($hr as $user) {
+                $a = $id;
+                Mail::send('sop::leave._notify_email', $data, function ($m) use ($user, $a) {
+
+                    // get worker name
+                    $model = LeaveHead::findOrFail($a);
+                    $worker = User::where('id',$model->user_id)->first();
+                    $worker_name = $worker->username;
+                    $m->from('hr@gmail.com', 'SOP');
+                    //$m->to($user->email,$user->username)->subject('Leave Application');
+                    $m->to($user->email,$user->username)->subject('Verlof aanvraag ' . $worker_name . ' geaccepteerd');
                 });
             }
 

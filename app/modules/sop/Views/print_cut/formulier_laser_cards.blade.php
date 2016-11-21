@@ -79,7 +79,7 @@
 
                 <div class="form-group m-t-80">
                     <label for="prijs" class="col-xs-2 control-label">Prijs</label>
-                    <label for="prijs" class="col-xs-1 control-label">SR$</label>
+                    <label for="prijs" class="col-xs-1 control-label">SRD</label>
                     <div class="col-xs-9">
                         <input type="text" readonly="" class="prijs" id="prijs" placeholder="0 ,-" value="">
                     </div>

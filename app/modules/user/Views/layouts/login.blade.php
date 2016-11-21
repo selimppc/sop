@@ -32,7 +32,15 @@
 
 <div class="color-line"></div>
 
-
+<div class="text-center m-b-sm">
+    <div id="logo-login" class="light-version">
+        <img src="<?php echo e(URL::to('/')); ?>/assets/img/logo-dark.png" alt="logo SIB" class="bgm_logo_img">
+        <img src="<?php echo e(URL::to('/')); ?>/assets/img/logo_bit.png" alt="logo Bit Dynamics" class="bgm_logo_img">
+        <img src="<?php echo e(URL::to('/')); ?>/assets/img/logo_printwise.png" alt="logo Printwise" class="bgm_logo_img">
+        <h3>Online Platform</h3>
+    </div>
+    <br clear="all" />
+</div>
 
 <div class="login-container">
     @if($errors->any())

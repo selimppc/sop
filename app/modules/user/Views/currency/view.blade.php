@@ -14,9 +14,9 @@
             </div>
             <div class="panel-body">
                 <table class="table table-stiped table-bordered">
-                    <tr><th width="20%">Title</th><td width="2%">:</td><td width="77%" style="color:#230000">{{ $currency_old->title }}</td></tr>
-                    <tr><th>Value</th><td>:</td><td style="color:#230000">{{ $currency_old->value }}</td></tr>
-                    <tr><th>Description</th><td>:</td><td style="color:#230000">{{ $currency_old->description }}</td></tr>
+                    <tr><th width="20%">Title</th><td width="3%">:</td><td width="77%">{{ $currency_old->title }}</td></tr>
+                    <tr><th>Value</th><td>:</td><td>{{ $currency_old->value }}</td></tr>
+                    <tr><th>Description</th><td>:</td><td>{{ $currency_old->description }}</td></tr>
                 </table>
             </div>
         </div>

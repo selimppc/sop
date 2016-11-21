@@ -11,9 +11,9 @@
         <div class="panel">
             <div class="panel-heading">
                 <span class="panel-title">{{ $pageTitle }}</span>&nbsp;&nbsp;&nbsp;<span style="color: #A54A7B" class="user-guideline" data-content="<em>we can show all user in this page<br> and add new user, update, delete from this page</em>"></span>
-                <a class="btn btn-primary btn-xs pull-right pop" data-toggle="modal" href="#addData" data-placement="left" data-content="click 'add user' button to add new user">
+                <!-- <a class="btn btn-primary btn-xs pull-right pop" data-toggle="modal" href="#addData" data-placement="left" data-content="click 'add user' button to add new user">
                     <strong>Add Currency</strong>
-                </a>
+                </a> -->
             </div>
 
             <div class="panel-body">

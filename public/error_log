@@ -1,0 +1,56 @@
+[04-Mar-2016 06:51:14 America/Chicago] PHP Parse error:  syntax error, unexpected 'class' (T_CLASS), expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /home/app/public_html/sop/public/index.php on line 50
+[04-Mar-2016 07:45:19 America/Chicago] PHP Parse error:  syntax error, unexpected 'class' (T_CLASS), expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /home/app/public_html/sop/public/index.php on line 50
+[10-Apr-2016 02:14:04 America/Chicago] PHP Warning:  require(/home/app/public_html/sop/vendor/symfony/polyfill-mbstring/bootstrap.php): failed to open stream: No such file or directory in /home/app/public_html/sop/vendor/composer/autoload_real.php on line 55
+[10-Apr-2016 02:14:04 America/Chicago] PHP Fatal error:  require(): Failed opening required '/home/app/public_html/sop/vendor/symfony/polyfill-mbstring/bootstrap.php' (include_path='.:/opt/php55/lib/php') in /home/app/public_html/sop/vendor/composer/autoload_real.php on line 55
+[02-May-2016 06:43:51 America/Chicago] PHP Fatal error:  Class 'ComposerAutoloaderInit8ca9bfc65dbf554183f5cc67dd5504a8' not found in /home/app/public_html/sop/vendor/autoload.php on line 7
+[02-May-2016 06:44:48 America/Chicago] PHP Fatal error:  Class 'ComposerAutoloaderInit8ca9bfc65dbf554183f5cc67dd5504a8' not found in /home/app/public_html/sop/vendor/autoload.php on line 7
+[02-May-2016 06:45:33 America/Chicago] PHP Fatal error:  Class 'ComposerAutoloaderInit8ca9bfc65dbf554183f5cc67dd5504a8' not found in /home/app/public_html/sop/vendor/autoload.php on line 7
+[02-May-2016 06:53:43 America/Chicago] PHP Fatal error:  Class 'ComposerAutoloaderInit8ca9bfc65dbf554183f5cc67dd5504a8' not found in /home/app/public_html/sop/vendor/autoload.php on line 7
+[02-May-2016 06:54:52 America/Chicago] PHP Fatal error:  Class 'ComposerAutoloaderInit8ca9bfc65dbf554183f5cc67dd5504a8' not found in /home/app/public_html/sop/vendor/autoload.php on line 7
+[02-May-2016 06:57:03 America/Chicago] PHP Fatal error:  Class 'ComposerAutoloaderInit8ca9bfc65dbf554183f5cc67dd5504a8' not found in /home/app/public_html/sop/vendor/autoload.php on line 7
+[02-May-2016 06:57:06 America/Chicago] PHP Fatal error:  Class 'ComposerAutoloaderInit8ca9bfc65dbf554183f5cc67dd5504a8' not found in /home/app/public_html/sop/vendor/autoload.php on line 7
+[02-May-2016 06:57:11 America/Chicago] PHP Fatal error:  Class 'ComposerAutoloaderInit8ca9bfc65dbf554183f5cc67dd5504a8' not found in /home/app/public_html/sop/vendor/autoload.php on line 7
+[05-May-2016 01:18:47 Asia/Dacca] PHP Fatal error:  Class 'App\Helpers\DB' not found in /home/app/public_html/sop/app/Helpers/Lichtbakken.php on line 32
+[06-May-2016 00:59:48 Asia/Dacca] PHP Fatal error:  Class 'App\Helpers\DB' not found in /home/app/public_html/sop/app/Helpers/Lichtbakken.php on line 32
+[06-May-2016 00:59:56 Asia/Dacca] PHP Fatal error:  Class 'App\Helpers\DB' not found in /home/app/public_html/sop/app/Helpers/Lichtbakken.php on line 32
+[11-May-2016 00:05:55 Asia/Dacca] PHP Fatal error:  Class 'App\Helpers\DB' not found in /home/app/public_html/sop/app/Helpers/Lichtbakken.php on line 32
+[11-May-2016 00:06:03 Asia/Dacca] PHP Fatal error:  Class 'App\Helpers\DB' not found in /home/app/public_html/sop/app/Helpers/Lichtbakken.php on line 32
+[11-May-2016 00:06:08 Asia/Dacca] PHP Fatal error:  Class 'App\Helpers\DB' not found in /home/app/public_html/sop/app/Helpers/Lichtbakken.php on line 32
+[11-May-2016 00:06:21 Asia/Dacca] PHP Fatal error:  Class 'App\Helpers\DB' not found in /home/app/public_html/sop/app/Helpers/Lichtbakken.php on line 32
+[11-May-2016 00:06:44 Asia/Dacca] PHP Fatal error:  Class 'App\Helpers\DB' not found in /home/app/public_html/sop/app/Helpers/Lichtbakken.php on line 32
+[11-May-2016 19:13:40 Asia/Dacca] PHP Fatal error:  Class 'App\Helpers\DB' not found in /home/app/public_html/sop/app/Helpers/Lichtbakken.php on line 32
+[11-May-2016 19:14:14 Asia/Dacca] PHP Fatal error:  Class 'App\Helpers\DB' not found in /home/app/public_html/sop/app/Helpers/Lichtbakken.php on line 32
+[11-May-2016 19:15:52 Asia/Dacca] PHP Fatal error:  Class 'App\Helpers\DB' not found in /home/app/public_html/sop/app/Helpers/Lichtbakken.php on line 32
+[11-May-2016 19:34:56 Asia/Dacca] PHP Fatal error:  Class 'App\Helpers\DB' not found in /home/app/public_html/sop/app/Helpers/Lichtbakken.php on line 32
+[11-May-2016 19:53:33 Asia/Dacca] PHP Fatal error:  Class 'App\Helpers\DB' not found in /home/app/public_html/sop/app/Helpers/Lichtbakken.php on line 32
+[11-May-2016 21:44:05 Asia/Dacca] PHP Fatal error:  Class 'App\Helpers\DB' not found in /home/app/public_html/sop/app/Helpers/Lichtbakken.php on line 32
+[11-May-2016 21:44:18 Asia/Dacca] PHP Fatal error:  Class 'App\Helpers\DB' not found in /home/app/public_html/sop/app/Helpers/Lichtbakken.php on line 32
+[12-May-2016 01:44:50 Asia/Dacca] PHP Fatal error:  Class 'App\Helpers\DB' not found in /home/app/public_html/sop/app/Helpers/Lichtbakken.php on line 32
+[12-May-2016 20:25:33 Asia/Dacca] PHP Fatal error:  Class 'App\Helpers\DB' not found in /home/app/public_html/sop/app/Helpers/Lichtbakken.php on line 32
+[14-May-2016 17:09:15 Asia/Dacca] PHP Fatal error:  Class 'App\Helpers\DB' not found in /home/app/public_html/sop/app/Helpers/Lichtbakken.php on line 32
+[14-May-2016 17:09:28 Asia/Dacca] PHP Fatal error:  Class 'App\Helpers\DB' not found in /home/app/public_html/sop/app/Helpers/Lichtbakken.php on line 32
+[05-Oct-2016 23:36:26 Asia/Dacca] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in /home/app/public_html/sop/app/modules/sop/Controllers/LeaveController.php on line 190
+[05-Oct-2016 23:38:17 Asia/Dacca] PHP Warning:  Uncaught exception 'ErrorException' with message 'Undefined variable: id' in /home/app/public_html/sop/app/modules/sop/Controllers/LeaveController.php:223
+Stack trace:
+#0 /home/app/public_html/sop/app/modules/sop/Controllers/LeaveController.php(223): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/app/publi...', 223, Array)
+#1 [internal function]: App\Modules\Sop\Controllers\LeaveController->App\Modules\Sop\Controllers\{closure}(Object(Illuminate\Mail\Message))
+#2 /home/app/public_html/sop/vendor/laravel/framework/src/Illuminate/Mail/Mailer.php(428): call_user_func(Object(Closure), Object(Illuminate\Mail\Message))
+#3 /home/app/public_html/sop/vendor/laravel/framework/src/Illuminate/Mail/Mailer.php(171): Illuminate\Mail\Mailer->callMessageBuilder(Object(Closure), Object(Illuminate\Mail\Message))
+#4 /home/app/public_html/sop/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(219): Illuminate\Mail\Mailer->send('sop::leave._not...', Array, Object(Closu in /home/app/public_html/sop/app/modules/sop/Controllers/LeaveController.php on line 223
+[05-Oct-2016 23:38:17 Asia/Dacca] PHP Fatal error:  Cannot access empty property in /home/app/public_html/sop/app/modules/sop/Controllers/LeaveController.php on line 223
+[05-Oct-2016 23:39:10 Asia/Dacca] PHP Warning:  Uncaught exception 'ErrorException' with message 'Undefined variable: id' in /home/app/public_html/sop/app/modules/sop/Controllers/LeaveController.php:223
+Stack trace:
+#0 /home/app/public_html/sop/app/modules/sop/Controllers/LeaveController.php(223): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/app/publi...', 223, Array)
+#1 [internal function]: App\Modules\Sop\Controllers\LeaveController->App\Modules\Sop\Controllers\{closure}(Object(Illuminate\Mail\Message))
+#2 /home/app/public_html/sop/vendor/laravel/framework/src/Illuminate/Mail/Mailer.php(428): call_user_func(Object(Closure), Object(Illuminate\Mail\Message))
+#3 /home/app/public_html/sop/vendor/laravel/framework/src/Illuminate/Mail/Mailer.php(171): Illuminate\Mail\Mailer->callMessageBuilder(Object(Closure), Object(Illuminate\Mail\Message))
+#4 /home/app/public_html/sop/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(219): Illuminate\Mail\Mailer->send('sop::leave._not...', Array, Object(Closu in /home/app/public_html/sop/app/modules/sop/Controllers/LeaveController.php on line 223
+[05-Oct-2016 23:39:10 Asia/Dacca] PHP Fatal error:  Cannot access empty property in /home/app/public_html/sop/app/modules/sop/Controllers/LeaveController.php on line 223
+[05-Oct-2016 23:39:28 Asia/Dacca] PHP Warning:  Uncaught exception 'ErrorException' with message 'Undefined variable: id' in /home/app/public_html/sop/app/modules/sop/Controllers/LeaveController.php:225
+Stack trace:
+#0 /home/app/public_html/sop/app/modules/sop/Controllers/LeaveController.php(225): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/app/publi...', 225, Array)
+#1 [internal function]: App\Modules\Sop\Controllers\LeaveController->App\Modules\Sop\Controllers\{closure}(Object(Illuminate\Mail\Message))
+#2 /home/app/public_html/sop/vendor/laravel/framework/src/Illuminate/Mail/Mailer.php(428): call_user_func(Object(Closure), Object(Illuminate\Mail\Message))
+#3 /home/app/public_html/sop/vendor/laravel/framework/src/Illuminate/Mail/Mailer.php(171): Illuminate\Mail\Mailer->callMessageBuilder(Object(Closure), Object(Illuminate\Mail\Message))
+#4 /home/app/public_html/sop/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(219): Illuminate\Mail\Mailer->send('sop::leave._not...', Array, Object(Closu in /home/app/public_html/sop/app/modules/sop/Controllers/LeaveController.php on line 225
+[05-Oct-2016 23:39:28 Asia/Dacca] PHP Fatal error:  Cannot access empty property in /home/app/public_html/sop/app/modules/sop/Controllers/LeaveController.php on line 225

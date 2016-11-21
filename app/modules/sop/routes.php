@@ -121,6 +121,12 @@ Route::group(array('middleware' => 'auth','modules'=>'Sop', 'namespace' => 'App\
         'uses' => 'LeaveController@leave_decline'
     ]);
 
+    Route::any('leave-cancel/{id}', [
+        // 'middleware' => 'acl_access:leave-cancel/{id}',
+        'as' => 'leave-cancel',
+        'uses' => 'LeaveController@leave_cancel'
+    ]);
+
     Route::any('leave-accept/{id}', [
         'middleware' => 'acl_access:leave-accept/{id}',
         'as' => 'leave-accept',

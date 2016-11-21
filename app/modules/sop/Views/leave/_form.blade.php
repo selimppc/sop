@@ -8,12 +8,46 @@
         </div>
     </div>--}}
 
+    @if(Session::get('user-role')=='worker')
+        <div class="row">
+            <div class="col-sm-12">
+                {!! Form::label('type', 'Verlof Type:', ['class' => 'control-label']) !!}
+                <small class="required">(Required)</small>
+                <div class="input-group">
+                    <select name="type" id="type" class="form-control" required="required">
+                        <option value="">--- Selecteer een verlof type ---</option>
+                        <option value="normaal">Normaal (prive gevallen)</option>
+                        <option value="halve dag">Halve dag</option>
+                        <option value="spoed">Spoed</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    @elseif(Session::get('user-role')!='worker')
+        <div class="row">
+            <div class="col-sm-12">
+                {!! Form::label('type', 'Verlof Type:', ['class' => 'control-label']) !!}
+                <small class="required">(Required)</small>
+                <div class="input-group">
+                    <select name="type" id="type" class="form-control" required="required">
+                        <option value="">--- Selecteer een verlof type ---</option>
+                        <option value="normaal">Normaal</option>
+                        <option value="halve dag">Halve dag</option>
+                        <option value="spoed">Spoed</option>
+                        <option value="onwettig verzuim">Onwettig verzuim</option>
+                        <option value="buitenbezwaar">Buitenbezwaar</option>
+                        <option value="vertrekbrief">Vertrekbrief (bv. Schorsing)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    @endif
     <div class="row">
         <div class="col-sm-12">
             {!! Form::label('from_date', 'Verlofdag From:', ['class' => 'control-label']) !!}
             <small class="required">(Required)</small>
-            <div class="input-group date">
-                {!! Form::text('from_date', Input::old('from_date'), ['class' => 'form-control bs-datepicker-component','title'=>'select date','required']) !!}
+            <div class="input-group">
+                <input class="form-control" id="from_date" title="" required="required" name="from_date" type="date">
                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
             </div>
         </div>
@@ -23,8 +57,8 @@
         <div class="col-sm-12">
             {!! Form::label('to_date', 'Verlofdag To:', ['class' => 'control-label']) !!}
             <small class="required">(Required)</small>
-            <div class="input-group date">
-                {!! Form::text('to_date', Input::old('to_date'), ['class' => 'form-control bs-datepicker-component','title'=>'select date','required']) !!}
+            <div class="input-group">
+                <input class="form-control" id="to_date" title="" required="required" name="to_date" type="date">
                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
             </div>
         </div>
@@ -47,77 +81,35 @@
 
 <script>
 
-    //document.onload = function() {
-    $(function () {
-        $("#form_2").validate({
-            rules: {
-                name: {
-                    required: true,
-                },
-                password: {
-                    required: true,
-                },
-                url: {
-                    required: true,
-                    url: true
-                },
-                number: {
-                    required: true,
-                    number: true
-                },
-                max: {
-                    required: true,
-                    maxlength: 4
-                }
-            },
-            submitHandler: function (form) {
-                form.submit();
+    $("#form_2").submit(function(e){
+        e.preventDefault();
+
+        saldo = $("#saldo").html();
+        from_date = $("#from_date").val();
+        to_date = $("#to_date").val();
+
+        function daysBetween(one, another) {
+            return Math.round(Math.abs(one - another) / 8.64e7);
+        }
+
+        verschil = daysBetween(new Date(from_date), new Date(to_date)) + 1;
+        alert(verschil);
+        if (saldo < verschil) {
+            alert("Onvoldoende verlofdagen!");
+        } else {
+            // alert("Voldoende verlofdagen");
+            today = new Date();
+            check_week = today.getDate() + 7;
+            check_day = new Date(from_date);
+            get_check_day = check_day.getDate();
+            // alert(get_check_day);
+
+            if (check_week > get_check_day) {
+                alert("Dit is geen week van tevoren");
+            } else {
+                // alert("Dit is een week van tevoren");
+                e.currentTarget.submit();
             }
-        });
-
-        $("#form_2").validate({
-            rules: {
-                name: {
-                    required: true,
-                },
-                username: {
-                    required: true,
-                },
-                url: {
-                    required: true,
-                    url: true
-                },
-                number: {
-                    required: true,
-                    number: true
-                },
-                last_name: {
-                    required: true,
-                    minlength: 6
-                }
-            },
-            messages: {
-                number: {
-                    required: "(Please enter your phone number)",
-                    number: "(Please enter valid phone number)"
-                },
-                last_name: {
-                    required: "This is custom message for required",
-                    minlength: "This is custom message for min length"
-                }
-            },
-            submitHandler: function (form) {
-                form.submit();
-            },
-            errorPlacement: function (error, element) {
-                $(element)
-                        .closest("form")
-                        .find("label[for='" + element.attr("id") + "']")
-                        .append(error);
-            },
-            errorElement: "span",
-        });
+        }
     });
-    //}
 </script>
-

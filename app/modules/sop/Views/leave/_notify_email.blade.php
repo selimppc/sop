@@ -9,10 +9,7 @@
 </head>
 <body>
 
-<p>Dear Sir,</p>
-<p>Application for leave.</p>
-<p>Leave Application : {{ isset($leave->status)?ucfirst($leave->status):''}}</p>
-<br>
+<p>Geachte heer of mevrouw,</p>
 <br>
 <div>
     <table border="1" cellpadding="0" cellspacing="0">
@@ -24,9 +21,9 @@
         </tr>
         <tr>
             <th style="padding: 3px">Leave From :</th>
-            <td style="padding: 3px">{{ isset($leave->from_date)?date('Y-m-d', strtotime($leave->from_date) ):''}}</td>
+            <td style="padding: 3px">{{ isset($leave->from_date)?date('D j M o', strtotime($leave->from_date) ):''}}</td>
             <th style="padding: 3px">To</th>
-            <td style="padding: 3px">{{ isset($leave->to_date)?date('Y-m-d', strtotime($leave->to_date) ):''}}</td>
+            <td style="padding: 3px">{{ isset($leave->to_date)?date('D j M o', strtotime($leave->to_date) ):''}}</td>
         </tr>
         <tr>
             <th style="padding: 3px">Status :</th>
