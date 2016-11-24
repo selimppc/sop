@@ -30,8 +30,23 @@ class Screenprint
         $r11 = DB::table('settings')->where('title','r11_screen')->pluck('status'); //1.2;     // Shirt Markup Percent (1.500 is 50% markup)
         $r16 = DB::table('settings')->where('title','r16_screen')->pluck('status'); //15;      // Screen Preparation charges (per screen)
         $r17 = DB::table('settings')->where('title','r17_screen')->pluck('status'); //0.10;    // Ink Charge/per color/per shirt-could reserve for PITA
-        $r18 = DB::table('settings')->where('title','r18_screen')->pluck('status'); //1.10;    // Primary Base Print Charges (Materials+Labor+Profit)
-        $r19 = DB::table('settings')->where('title','r19_screen')->pluck('status'); //0.60;    // Secondary Base Print Charges (Labor+Profit)
+
+        /**
+         * Retrieve Data to derive the value of $k46 and $k47
+         */
+        $r38 = DB::table('settings')->where('title','r38_screen')->pluck('status'); //500       //Primary Prints/Month
+        $r39 = DB::table('settings')->where('title','r39_screen')->pluck('status'); //2500      //Secondary Prints/Month
+        $r40 = DB::table('settings')->where('title','r40_screen')->pluck('status'); //1000      //Monthly Rent
+        $r41 = DB::table('settings')->where('title','r41_screen')->pluck('status'); //300       //Monthly Electric
+        $r42 = DB::table('settings')->where('title','r42_screen')->pluck('status'); //30        //Monthly Water
+        $r43 = DB::table('settings')->where('title','r43_screen')->pluck('status'); //1500      //Monthly Payroll
+        $r44 = DB::table('settings')->where('title','r44_screen')->pluck('status'); //3000      //Monthly Profit (Clear)
+        $r45 = DB::table('settings')->where('title','r45_screen')->pluck('status'); //500       //Monthly Equip Pmts
+        $r46 = DB::table('settings')->where('title','r46_screen')->pluck('status'); //200       //Ink/Wash/Emul
+        $r47 = DB::table('settings')->where('title','r47_screen')->pluck('status'); //100       //Miscellaneous
+
+        //$r18 = DB::table('settings')->where('title','r18_screen')->pluck('status'); //1.10;    // Primary Base Print Charges (Materials+Labor+Profit)
+        //$r19 = DB::table('settings')->where('title','r19_screen')->pluck('status'); //0.60;    // Secondary Base Print Charges (Labor+Profit)
 
         $r22 = DB::table('settings')->where('title','r22_screen')->pluck('status'); //0.00; // Artwork - Format is xxxx.xx (******* May be come From User input )
         $r28 = DB::table('settings')->where('title','r28_screen')->pluck('status'); //0.08; // Sales Tax Rate - (6 percent Sales Tax is .0600) (******* May be come From User input )
@@ -46,6 +61,19 @@ class Screenprint
         //$euro_to_srd = 7.8;
         $euro_to_srd = DB::table('currency')->where('title', 'Euro')->pluck('value');
 
+
+        //========== Derivation of K46 and K46 according to excel sheet ***//
+        $k46 = (($r43+$r44)*($r38/($r38+$r39))+$r40+$r41+$r42+$r45+$r46+$r47)/$r38;
+        $k47 = (($r43+$r44)*($r39/($r38+$r39)))/$r39;
+        #$print = $k46.'and'.$k47;
+        #print_r($print);exit();
+
+        //========== Derivation of $r18 and $r19 according to the excel sheet. where D18 = $r18 and D19 = $r19
+        $x = 0.1;
+        $r18 = round(($k46+$x/2)/$x)*$x;    // =+CEILING(K46,0.1) in Excel sheet
+        $r19 = round(($k47+$x/2)/$x)*$x;    // =+CEILING(K47,0.1) in Excel sheet
+        #$ceil = $r18.'and'.$r19;
+        #print_r($ceil);exit();
 
 
         //========== Check Quantity ***//

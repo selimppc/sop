@@ -182,6 +182,30 @@ Route::any('homer', [
     ]);
 
 
+    //===== Settings (Calculator and others) ...***
+    Route::any('settings', [
+        'as'=>'settings',
+        'uses'=>'SettingsController@settings'
+    ]);
+    Route::any('settings-store/{id}', [
+        'as' => 'settings-store',
+        'uses' => 'SettingsController@store'
+    ]);
+    Route::any('settings-edit/{id}', [
+        'as' => 'settings-edit',
+        'uses' => 'SettingsController@edit'
+    ]);
+    Route::any('settings-update/{id}', [
+        'as' => 'settings-update',
+        'uses' => 'SettingsController@update'
+    ]);
+
+    Route::any('settings-show/{id}', [
+        'as' => 'settings-show',
+        'uses' => 'SettingsController@show'
+    ]);
+
+
 
 
 });

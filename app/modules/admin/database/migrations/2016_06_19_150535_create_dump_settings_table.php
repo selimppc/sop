@@ -15,6 +15,7 @@ class CreateDumpSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title',64);
+            $table->string('title_full',128);
             $table->string('status',64);
             $table->string('user_type',64);
             $table->integer('created_by', false, 11)->nullable();
