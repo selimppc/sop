@@ -4,6 +4,8 @@ namespace App\Modules\Sop\Controllers;
 
 use App\PriceList;
 use App\Helpers\ImageResize;
+use App\ProductCategory;
+use App\ProductImage;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Validator;
@@ -22,7 +24,16 @@ class PriceListController extends Controller
     public function index()
     {
         $pageTitle = "List of Price(s)";
-        $data = PriceList::where('status','!=','inactive')->paginate(30);
+        $data = PriceList::with('relProductImage')->where('status','!=','inactive')->paginate(30);
+        #print_r($data[8]->relProductImage[0]['image']);exit();
+
+        $category = ProductCategory::where('status','active')->orderBy('title','ASC')->get();
+        $cat_options_arr = array();
+        foreach($category as $category_options){
+            $cat_options_arr[$category_options->id]= $category_options->title;
+        }
+        #print_r($cat_options_arr);exit();
+        // How to show laravel drop down select menu with data array from database
 
         $currency = DB::table('currency')->get();
 
@@ -33,7 +44,8 @@ class PriceListController extends Controller
             'data'=>$data,
             'pageTitle'=>$pageTitle,
             'usd'=>$usd,
-            'euro'=>$euro
+            'euro'=>$euro,
+            'cat_options'=>$cat_options_arr
         ]);
     }
 
@@ -46,46 +58,69 @@ class PriceListController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        //print_r($input); exit();
+        #print_r($input); exit();
 
-        $image = Input::file('image');
-        //print_r($image); exit('');
+        $image_input_array = Input::file('image');
+        #print_r($image_array); exit('');
 
-        if(count($image)>0){
-            $file_type_required = 'png,jpeg,jpg';
-            $destinationPath = 'uploads/pricelist_image/';
+        if(count($image_input_array)>0){
+            $image_array = array();
+            for($i=0; $i<count($image_input_array); $i++){
+                //$img_name = ($_FILES['image']['name']);
+                $img_name = $_FILES['image']['name'][$i];
+                $image = Input::file('image')[$i];
+                #print_r($image);exit();
+                $file_type_required = 'png,jpeg,jpg';
+                $destinationPath = 'uploads/product_image/';
+                $uploadfolder = 'uploads/';
 
-            $uploadfolder = 'uploads/';
+                if ( !file_exists($uploadfolder) ) {
+                    $oldmask = umask(0);  // helpful when used in linux server
+                    mkdir ($uploadfolder, 0777);
+                }
 
-            if ( !file_exists($uploadfolder) ) {
-                $oldmask = umask(0);  // helpful when used in linux server
-                mkdir ($uploadfolder, 0777);
+                if ( !file_exists($destinationPath) ) {
+                    $oldmask = umask(0);  // helpful when used in linux server
+                    mkdir ($destinationPath, 0777);
+                }
+
+                $file_name = PriceListController::image_upload($image,$file_type_required,$destinationPath,$img_name);
+
+                if($file_name != '') {
+                    $image_array [] = array(
+                        'image'=>$file_name[0],
+                        'thumbnail'=>$file_name[1],
+                    );
+                }
             }
 
-            if ( !file_exists($destinationPath) ) {
-                $oldmask = umask(0);  // helpful when used in linux server
-                mkdir ($destinationPath, 0777);
-            }
-
-            $file_name = PriceListController::image_upload($image,$file_type_required,$destinationPath);
-            //print_r($file_name);exit;
-            if($file_name != '') {
-//                unlink($model->image);
-//                unlink($model->thumbnail);
-                $input['image'] = $file_name[0];
-                $input['thumb_image'] = $file_name[1];
-            }
-            else{
-                Session::flash('error', 'Some thing error in image file type! Please Try again');
-                return redirect()->back();
-            }
+            $input_arr = [
+                'code'=>$input['code'],
+                'description'=>$input['description'],
+                'unit'=>$input['unit'],
+                'price'=>$input['price'],
+                'status'=>$input['status'],
+                'product_category_id'=>$input['product_category_id'],
+            ];
+            #print_r($input_arr);exit();
             DB::beginTransaction();
             try {
                 /*$image_model->create($input);
                 DB::commit();
                 Session::flash('message', "Successfully added");
                 #LogFileHelper::log_info('store-user-profile', 'Successfully added', ['User profile image:'.$input['image']] );*/
-                PriceList::create($input);
+                $create_price_list = PriceList::create($input_arr);
+                if($create_price_list){
+                    foreach($image_array as $image_row){
+                        $image_create = [
+                            'price_list_id' => $create_price_list['id'],
+                            'image'=>isset($image_row['image'])?$image_row['image']:null,
+                            'thumbnail'=>isset($image_row['thumbnail'])?$image_row['thumbnail']:null,
+                            'status'=>'active'
+                        ];
+                        ProductImage::create($image_create);
+                    }
+                }
                 DB::commit();
                 Session::flash('message', 'Successfully added!');
 
@@ -107,7 +142,9 @@ class PriceListController extends Controller
     public function show($id)
     {
         $pageTitle = 'View Price detail ';
-        $data = PriceList::where('id', $id )->first();
+        $data = PriceList::with('relProductImage')->where('id', $id )->first();
+
+        #print_r($data);exit();
 
         return view('sop::price_list.view', [
             'data' => $data,
@@ -124,10 +161,21 @@ class PriceListController extends Controller
     public function edit($id)
     {
         $pageTitle = "Update Price detail";
-        $data = PriceList::findOrFail($id);
+        $data = PriceList::with('relProductImage')->findOrFail($id);
+
+        $category = ProductCategory::where('status','active')->orderBy('title','ASC')->get();
+        $cat_options_arr = array();
+        foreach($category as $category_options){
+            $cat_options_arr[$category_options->id]= $category_options->title;
+        }
+
+        #print_r($cat_options_arr);exit();
+
         return view('sop::price_list.update', [
             'data' => $data,
-            'pageTitle'=> $pageTitle
+            'pageTitle'=> $pageTitle,
+            'cat_options'=> $cat_options_arr,
+
         ]);
     }
 
@@ -142,44 +190,105 @@ class PriceListController extends Controller
     {
         $input = $request->all();
 
-        $image = Input::file('image');
+        #$image = Input::file('image');
+        $image_input_array = Input::file('image');
 
-        if(count($image)>0){
-            $file_type_required = 'png,jpeg,jpg';
-            $destinationPath = 'uploads/pricelist_image/';
+        if(count($image_input_array)>0) {
 
-            $uploadfolder = 'uploads/';
+            for ($i = 0; $i < count($image_input_array); $i++) {
+                //$img_name = ($_FILES['image']['name']);
+                $img_name = $_FILES['image']['name'][$i];
+                $image = Input::file('image')[$i];
+                #print_r($image);exit();
+                $file_type_required = 'png,jpeg,jpg';
+                $destinationPath = 'uploads/product_image/';
+                $uploadfolder = 'uploads/';
 
-            if ( !file_exists($uploadfolder) ) {
-                $oldmask = umask(0);  // helpful when used in linux server
-                mkdir ($uploadfolder, 0777);
+                if (!file_exists($uploadfolder)) {
+                    $oldmask = umask(0);  // helpful when used in linux server
+                    mkdir($uploadfolder, 0777);
+                }
+
+                if (!file_exists($destinationPath)) {
+                    $oldmask = umask(0);  // helpful when used in linux server
+                    mkdir($destinationPath, 0777);
+                }
+
+                $file_name = PriceListController::image_upload($image, $file_type_required, $destinationPath, $img_name);
+
+                if ($file_name != '') {
+                    $image_array [] = array(
+                        'image' => $file_name[0],
+                        'thumbnail' => $file_name[1],
+                    );
+                }
             }
+        }
 
-            if ( !file_exists($destinationPath) ) {
-                $oldmask = umask(0);  // helpful when used in linux server
-                mkdir ($destinationPath, 0777);
-            }
 
-            $file_name = PriceListController::image_upload($image,$file_type_required,$destinationPath);
-            //print_r($file_name);exit;
-            if($file_name != '') {
-//                unlink($model->image);
-//                unlink($model->thumbnail);
-                $input['image'] = $file_name[0];
-                $input['thumb_image'] = $file_name[1];
-            }
-            else{
-                Session::flash('error', 'Some thing error in image file type! Please Try again');
-                return redirect()->back();
-            }
+            $input_arr = [
+                'code'=>$input['code'],
+                'description'=>$input['description'],
+                'unit'=>$input['unit'],
+                'price'=>$input['price'],
+                'status'=>$input['status'],
+                'product_category_id'=>$input['product_category_id'],
+            ];
+
             $model = PriceList::findOrFail($id);
+            $model->code = $input['code'];
+            $model->description = $input['description'];
+            $model->unit = $input['unit'];
+            $model->price = $input['price'];
+            $model->status = $input['status'];
+            $model->product_category_id = $input['product_category_id'];
             DB::beginTransaction();
             try {
                 /*$image_model->create($input);
                 DB::commit();
                 Session::flash('message', "Successfully added");
                 #LogFileHelper::log_info('store-user-profile', 'Successfully added', ['User profile image:'.$input['image']] );*/
-                $model->update($input);
+                #$model->update($input_arr);
+
+
+                $update_price_list = $model->save();
+                #print_r($update_price_list['id']);exit();
+
+                if($update_price_list){
+                    if(count($image_input_array)>0){
+                        if($update_price_list['id']){
+                            $model_productImage = ProductImage::where('price_list_id',$id)->delete();
+                            /*if(count($model_productImage)>0){
+                                foreach($model_productImage as $img){
+                                    $model_productImage->delete();
+                                    if (file_exists($model_productImage->image)) {
+                                        unlink(public_path()."/".$model_productImage->image);
+                                    }
+                                    if (file_exists($model_productImage->image_thumb)) {
+                                        unlink(public_path()."/".$model_productImage->image_thumb);
+                                    }
+                                }
+                            }*/
+
+                        }
+
+                        if(isset($image_array)){
+                            foreach($image_array as $image_row){
+                                $image_create = [
+                                    'price_list_id' => $id,
+                                    'image'=>isset($image_row['image'])?$image_row['image']:null,
+                                    'thumbnail'=>isset($image_row['thumbnail'])?$image_row['thumbnail']:null,
+                                    'status'=>'active'
+                                ];
+                                if($update_price_list['id']){
+                                    ProductImage::create($image_create);
+                                }
+                            }
+                        }
+
+                    }
+                }
+
                 DB::commit();
                 Session::flash('message', 'Successfully added!');
 
@@ -188,7 +297,7 @@ class PriceListController extends Controller
                 DB::rollback();
                 Session::flash('danger', $e->getMessage());
             }
-        }
+        //}
         return redirect()->route('price-list');
     }
 
@@ -244,10 +353,11 @@ class PriceListController extends Controller
         return redirect()->route('price-list');
     }
 
-    public function image_upload($image,$file_type_required,$destinationPath){
+    public function image_upload($image,$file_type_required,$destinationPath,$img_name){
 
         if ($image != '') {
-            $img_name = ($_FILES['image']['name']);
+            #$img_name = ($_FILES['image']['name']);
+            #print_r($img_name);exit();
             $random_number = rand(111, 999);
 
             $thumb_name = 'thumb_50x50_'.$random_number.'_'.$img_name;

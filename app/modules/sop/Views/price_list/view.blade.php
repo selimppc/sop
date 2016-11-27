@@ -12,7 +12,15 @@
             </tr>
             <tr>
                 <th class="col-lg-4">Image</th>
-                <td><img src="{{ isset($data->image)? $data->image : ''}}" width="300"></td>
+                <td>
+                    @if(isset($data->relProductImage[0]))
+                        <img src="{{ isset($data->relProductImage[0]['image'])? $data->relProductImage[0]['image'] : ''}}" width="300">
+                        <hr>
+                        @foreach($data->relProductImage as $images)
+                            <img src="{{ isset($images['image'])? $images['thumbnail'] : ''}}" width="32%">
+                        @endforeach
+                    @endif
+                </td>
             </tr>
             <tr>
                 <th class="col-lg-4">Description</th>

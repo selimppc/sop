@@ -24,6 +24,13 @@
 
             <div class="row">
                 <div class="col-sm-12">
+                    {!! Form::label('product_category_id', 'Product Category:', ['class' => 'control-label']) !!}
+                    {!! Form::Select('product_category_id',$cat_options ,Input::old('product_category_id'),['class'=>'form-control ','required']) !!}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
                     {!! Form::label('description', 'Description:', ['class' => 'control-label']) !!}
                     {!! Form::textarea('description',Input::old('description'),['class' => 'form-control', 'rows'=>"4"]) !!}
                 </div>
@@ -51,8 +58,17 @@
                             <img src="{{ isset($data->thumb_image)? $data->thumb_image : ''}}">
                         <br>
                     <?php } ?>
+
+                        @if(isset($data->relProductImage[0]))
+                            {{--<img src="{{ isset($data->relProductImage[0]['image'])? $data->relProductImage[0]['image'] : ''}}" width="300">
+                            <hr>--}}
+                            @foreach($data->relProductImage as $images)
+                                <img src="{{ isset($images['image'])? $images['thumbnail'] : ''}}" width="32%">
+                            @endforeach
+                        @endif
                     {!! Form::label('image', 'Image:', ['class' => 'control-label']) !!}
-                    {!! Form::file('image', ['class' => 'form-control','placeholder'=>'upload image','required', 'title'=>'Image']) !!}
+                    {{--{!! Form::file('image', ['class' => 'form-control','placeholder'=>'upload image','required', 'title'=>'Image']) !!}--}}
+                    {!! Form::file('image[]', ['class' => 'form-control','placeholder'=>'upload image','multiple', 'title'=>'Image']) !!}
                 </div>
             </div>
 

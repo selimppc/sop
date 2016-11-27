@@ -1,30 +1,33 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: etsb
+ * Date: 2/16/16
+ * Time: 5:05 PM
+ */
 
 namespace App;
+
 
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
-class PriceList extends Model
+class ProductCategory extends Model
 {
-    protected $table = 'price_list';
+
+    protected $table = 'product_category';
 
     protected $fillable = [
-        'code',
+        'title',
         'description',
-        'unit',
-        'price',
-        'product_category_id',
-        'status',
+        'status'
     ];
 
-
-    public function relProductImage(){
-        return $this->hasMany('App\ProductImage', 'price_list_id', 'id');
-    }
+    /*public function relPriceList(){
+        return $this->belongsTo('App\PriceList', 'price_list_id', 'id');
+    }*/
 
     // TODO :: boot
     // boot() function used to insert logged user_id at 'created_by' & 'updated_by'
@@ -42,7 +45,4 @@ class PriceList extends Model
             }
         });
     }
-
-
-
 }

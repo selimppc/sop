@@ -71,8 +71,14 @@
                                                     <a href="{{ route('delete-price-list', $values->id) }}" class="btn btn-danger btn-xs" data-placement="top" onclick="return confirm('Are you sure to Delete?')" data-content="delete"><i class="fa fa-trash-o"></i></a>
                                                 </div>
                                             </div>
-                                            <a href="{{ route('view-price-list', $values->id) }}" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="view"><img alt="logo" class="m-b m-t-md" src="{{ $values->thumb_image }}"></a>
-                                            <h5><a href="{{ route('view-price-list', $values->id) }}" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="view">{{ $values->description }}</a></h5>  
+                                            <a href="{{ route('view-price-list', $values->id) }}" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="view">
+                                                {{--<img alt="logo" class="m-b m-t-md" src="{{ $values->thumb_image }}">--}}
+                                                @if(isset($values->relProductImage[0]))
+                                                <img alt="logo" class="m-b m-t-md" src="{{ $values->relProductImage[0]['thumbnail'] }}">
+                                                @endif
+
+                                            </a>
+                                            <h5><a href="{{ route('view-price-list', $values->id) }}" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="view">{{ $values->description }}</a></h5>
                                         </div>
                                         <div class="panel-footer contact-footer">
                                             <div class="row">

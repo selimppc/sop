@@ -9,6 +9,14 @@
 
     <div class="row">
         <div class="col-sm-12">
+            {!! Form::label('product_category_id', 'Product Category:', ['class' => 'control-label']) !!}
+            {{--<small class="narration">(Active status Selected)</small>--}}
+            {!! Form::Select('product_category_id',$cat_options ,Input::old('product_category_id'),['class'=>'form-control ','required']) !!}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
             {!! Form::label('description', 'Description:', ['class' => 'control-label']) !!}
             {!! Form::textarea('description',Input::old('description'),['class' => 'form-control', 'rows'=>"4"]) !!}
         </div>
@@ -32,7 +40,7 @@
     <div class="row">
         <div class="col-sm-12">
             {!! Form::label('image', 'Image:', ['class' => 'control-label']) !!}
-            {!! Form::file('image', ['class' => 'form-control','placeholder'=>'upload image','required', 'title'=>'Image']) !!}
+            {!! Form::file('image[]', ['class' => 'form-control','placeholder'=>'upload image','required','multiple', 'title'=>'Image']) !!}
         </div>
     </div>
 

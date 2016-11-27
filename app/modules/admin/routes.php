@@ -205,6 +205,29 @@ Route::any('homer', [
         'uses' => 'SettingsController@show'
     ]);
 
+    //===== Product Category ...***
+    Route::any('product-category', [
+        'as'=>'product-category',
+        'uses'=>'ProductCategoryController@index'
+    ]);
+    Route::any('product-category-store', [
+        'as' => 'product-category-store',
+        'uses' => 'ProductCategoryController@store'
+    ]);
+    Route::any('product-category-edit/{id}', [
+        'as' => 'product-category-edit',
+        'uses' => 'ProductCategoryController@edit'
+    ]);
+    Route::any('product-category-update/{id}', [
+        'as' => 'product-category-update',
+        'uses' => 'ProductCategoryController@update'
+    ]);
+
+    Route::any('product-category-show/{id}', [
+        'as' => 'product-category-show',
+        'uses' => 'ProductCategoryController@show'
+    ]);
+
 
 
 
