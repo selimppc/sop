@@ -190,10 +190,11 @@ class PriceListController extends Controller
     {
         $input = $request->all();
 
-        #$image = Input::file('image');
         $image_input_array = Input::file('image');
+        #print_r($image_input_array[0]);exit();
+        #if(!empty($image_input_array[0])){ exit('Not null');}else{ exit('Null');}
 
-        if(count($image_input_array)>0) {
+        if(!empty($image_input_array[0])) {
 
             for ($i = 0; $i < count($image_input_array); $i++) {
                 //$img_name = ($_FILES['image']['name']);
@@ -225,16 +226,6 @@ class PriceListController extends Controller
             }
         }
 
-
-            $input_arr = [
-                'code'=>$input['code'],
-                'description'=>$input['description'],
-                'unit'=>$input['unit'],
-                'price'=>$input['price'],
-                'status'=>$input['status'],
-                'product_category_id'=>$input['product_category_id'],
-            ];
-
             $model = PriceList::findOrFail($id);
             $model->code = $input['code'];
             $model->description = $input['description'];
@@ -242,34 +233,27 @@ class PriceListController extends Controller
             $model->price = $input['price'];
             $model->status = $input['status'];
             $model->product_category_id = $input['product_category_id'];
-            DB::beginTransaction();
+            #DB::beginTransaction();
             try {
-                /*$image_model->create($input);
-                DB::commit();
-                Session::flash('message', "Successfully added");
-                #LogFileHelper::log_info('store-user-profile', 'Successfully added', ['User profile image:'.$input['image']] );*/
-                #$model->update($input_arr);
-
-
                 $update_price_list = $model->save();
-                #print_r($update_price_list['id']);exit();
+                #print_r($update_price_list);exit();
 
                 if($update_price_list){
-                    if(count($image_input_array)>0){
-                        if($update_price_list['id']){
-                            $model_productImage = ProductImage::where('price_list_id',$id)->delete();
-                            /*if(count($model_productImage)>0){
-                                foreach($model_productImage as $img){
-                                    $model_productImage->delete();
-                                    if (file_exists($model_productImage->image)) {
-                                        unlink(public_path()."/".$model_productImage->image);
-                                    }
-                                    if (file_exists($model_productImage->image_thumb)) {
-                                        unlink(public_path()."/".$model_productImage->image_thumb);
-                                    }
+                    #print_r(count($image_input_array));exit();
+                    if(!empty($image_input_array[0])){
+                        if($id){
+                            $model_productImage = ProductImage::where('price_list_id',$id)->get();
+                            #print_r($model_productImage);exit();
+                            foreach($model_productImage as $imgrow)
+                            {
+                                if (file_exists($imgrow->image)) {
+                                    unlink(public_path()."/".$imgrow->image);
                                 }
-                            }*/
-
+                                if (file_exists($imgrow->thumbnail)) {
+                                    unlink(public_path()."/".$imgrow->thumbnail);
+                                }
+                            }
+                            ProductImage::where('price_list_id',$id)->delete();
                         }
 
                         if(isset($image_array)){
@@ -280,7 +264,8 @@ class PriceListController extends Controller
                                     'thumbnail'=>isset($image_row['thumbnail'])?$image_row['thumbnail']:null,
                                     'status'=>'active'
                                 ];
-                                if($update_price_list['id']){
+                                #if($update_price_list['id']){
+                                if($id){
                                     ProductImage::create($image_create);
                                 }
                             }
@@ -289,12 +274,12 @@ class PriceListController extends Controller
                     }
                 }
 
-                DB::commit();
+                //DB::commit();
                 Session::flash('message', 'Successfully added!');
 
             } catch (\Exception $e) {
                 //If there are any exceptions, rollback the transaction`
-                DB::rollback();
+                #DB::rollback();
                 Session::flash('danger', $e->getMessage());
             }
         //}

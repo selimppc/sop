@@ -65,9 +65,8 @@
                             @foreach($data->relProductImage as $images)
                                 <img src="{{ isset($images['image'])? $images['thumbnail'] : ''}}" width="32%">
                             @endforeach
-                        @endif
+                        @endif<br>
                     {!! Form::label('image', 'Image:', ['class' => 'control-label']) !!}
-                    {{--{!! Form::file('image', ['class' => 'form-control','placeholder'=>'upload image','required', 'title'=>'Image']) !!}--}}
                     {!! Form::file('image[]', ['class' => 'form-control','placeholder'=>'upload image','multiple', 'title'=>'Image']) !!}
                 </div>
             </div>
