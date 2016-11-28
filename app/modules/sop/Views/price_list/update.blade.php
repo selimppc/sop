@@ -60,13 +60,19 @@
                     <?php } ?>
 
                         @if(isset($data->relProductImage[0]))
-                            {{--<img src="{{ isset($data->relProductImage[0]['image'])? $data->relProductImage[0]['image'] : ''}}" width="300">
-                            <hr>--}}
-                            @foreach($data->relProductImage as $images)
-                                <img src="{{ isset($images['image'])? $images['thumbnail'] : ''}}" width="32%">
-                            @endforeach
-                        @endif<br>
-                    {!! Form::label('image', 'Image:', ['class' => 'control-label']) !!}
+                            <div style="margin: 5px 0">
+                                @foreach($data->relProductImage as $images)
+                                    <span class="after-delete-hideme-{{(isset($images['id']))?$images['id']:''}}" style="width: 32.4%; display: inline-block !important; border: 1px solid #e0e0e0; margin-bottom: 5px; position: relative; padding: 5px 0;">
+                                        <button type="button" value="{{ (isset($images['id']))? $images['id'] : '' }}" class="btn btn-danger btn-xs delete" style="position:absolute; top:0; right:0; height: 20px; width: 20px; border-radius: 0 0 0 20px; padding:0 0 5px 5px !important; outline: none !important; box-shadow: none !important;">
+                                            <i class="fa fa-times-circle"></i>
+                                        </button>
+                                        <img src="{{ isset($images['image'])? $images['thumbnail'] : ''}}" height="60">
+                                    </span>
+                                @endforeach
+                            </div>
+                        @endif
+                        <br>
+                    {!! Form::label('image', 'Add new Image:', ['class' => 'control-label']) !!}
                     {!! Form::file('image[]', ['class' => 'form-control','placeholder'=>'upload image','multiple', 'title'=>'Image']) !!}
                 </div>
             </div>
@@ -86,8 +92,44 @@
         </div>
         {!! Form::close() !!}
 </div>
-
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+    });
+</script>
 <script>
+    /*==== For Image Delete */
+
+    $(document).ready(function(){
+       $('.delete').click(function(){
+           var delete_id = $(this).val();
+           var parent_id = "{{ $data->id }}";
+           var delete_url = 'image-delete';
+           //alert(delete_url);
+           //confirm('are u sure !');
+
+           if (confirm("Are you sure ! This Image will be removed permanently ") == true) {
+               $.ajax({
+                   type: "POST",
+                   url: delete_url,
+                   data: {'id': delete_id,'parent_id': parent_id},
+                   success:function(data){
+                       if(data !=''){
+                           //alert(data);
+                           $('.after-delete-hideme-'+delete_id).fadeOut(400);
+                       }
+                   }
+               });
+           } else {
+              return false;
+           }
+       });
+    });
+
+    /*==== Image Delete End*/
+
+
+
     $(".btn").popover({ trigger: "manual" , html: true, animation:false})
             .on("mouseenter", function () {
                 var _this = this;

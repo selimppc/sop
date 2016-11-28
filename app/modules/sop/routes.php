@@ -91,6 +91,18 @@ Route::group(array('middleware' => 'auth','modules'=>'Sop', 'namespace' => 'App\
         'uses' => 'PriceListController@destroy'
     ]);
 
+    Route::any('image-delete', [
+        'middleware' => 'acl_access:image-delete',
+        'as' => 'image-delete',
+        'uses' => 'PriceListController@imageDelete'
+    ]);
+
+    Route::any('onclick-image-show', [
+        'middleware' => 'acl_access:onclick-image-show',
+        'as' => 'onclick-image-show',
+        'uses' => 'PriceListController@onclickImageShow'
+    ]);
+
     /*
      *
      * Leave Applications

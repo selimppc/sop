@@ -241,7 +241,7 @@ class PriceListController extends Controller
                 if($update_price_list){
                     #print_r(count($image_input_array));exit();
                     if(!empty($image_input_array[0])){
-                        if($id){
+                        /*if($id){
                             $model_productImage = ProductImage::where('price_list_id',$id)->get();
                             #print_r($model_productImage);exit();
                             foreach($model_productImage as $imgrow)
@@ -254,7 +254,7 @@ class PriceListController extends Controller
                                 }
                             }
                             ProductImage::where('price_list_id',$id)->delete();
-                        }
+                        }*/
 
                         if(isset($image_array)){
                             foreach($image_array as $image_row){
@@ -284,6 +284,39 @@ class PriceListController extends Controller
             }
         //}
         return redirect()->route('price-list');
+    }
+
+    public function imageDelete()
+    {
+        //exit('Got');
+        $id = $_POST['id'];
+        $parent_id = $_POST['parent_id'];
+        #print_r($id.'/'.$parent_id);exit();
+        $model = ProductImage::where('id',$id)->first();
+        if($model){
+            if (file_exists($model->image)) {
+                unlink(public_path()."/".$model->image);
+            }
+            if (file_exists($model->thumbnail)) {
+                unlink(public_path()."/".$model->thumbnail);
+            }
+        }
+        $delete = ProductImage::where('id',$id)->delete();
+        if($delete){
+            return 'Successfully Deleted';
+        }else{
+            return 'Not Deleted';
+        }
+
+    }
+
+    public function onclickImageShow()
+    {
+        $id = $_POST['id'];
+        //print_r($id);exit();
+        $showimage = ProductImage::where('id',$id)->first();
+        //print_r($showimage);exit();
+        return $showimage->image;
     }
 
     public function search(){
